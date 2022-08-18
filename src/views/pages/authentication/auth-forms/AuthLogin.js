@@ -56,6 +56,37 @@ const FirebaseLogin = ({ ...others }) => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+    
+    const axios = require('axios');
+
+    const loginButton = async  (values) => {
+        const response = await fetch(`http://20.235.96.205:3005/patient/register`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                "name":values.email,
+                "password":values.password,
+                "address":"mumbai, maharashatra",
+                "state":"maharashatra",
+                "district":"mumbai",
+                "phone":1234567890
+            })
+          })
+          console.log(await response.json());
+        return await response.json();
+    };
+
+    const loginClick = async (values) => {
+        const response = await axios.post(`http://20.235.96.205:3005/patient/register`, {
+        "name":values.email,
+        "password":values.password,
+        "address":"mumbai, maharashatra",
+        "state":"maharashatra",
+        "district":"mumbai",
+        "phone":1234567890});
+        console.log(response.data);
+        return response.data;  
+    }
 
     return (
         <>
@@ -232,13 +263,14 @@ const FirebaseLogin = ({ ...others }) => {
                                     type="submit"
                                     variant="contained"
                                     color="secondary"
+                                    onClick={loginButton(values)}
                                 >
                                     Sign in
                                 </Button>
                             </AnimateButton>
                         </Box>
                     </form>
-                )}
+                )}   
             </Formik>
         </>
     );
