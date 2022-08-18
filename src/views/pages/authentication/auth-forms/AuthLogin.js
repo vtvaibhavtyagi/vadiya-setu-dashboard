@@ -34,6 +34,8 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import Google from 'assets/images/icons/social-google.svg';
+import health from "../../../../api/health"
+import axios from 'axios';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
@@ -56,36 +58,36 @@ const FirebaseLogin = ({ ...others }) => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-    
-    const axios = require('axios');
 
-    const loginButton = async  (values) => {
-        const response = await fetch(`http://20.235.96.205:3005/patient/register`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                "name":values.email,
-                "password":values.password,
-                "address":"mumbai, maharashatra",
-                "state":"maharashatra",
-                "district":"mumbai",
-                "phone":1234567890
-            })
-          })
-          console.log(await response.json());
-        return await response.json();
-    };
+    // const loginButton = async (values) => {
+    //     const response = await fetch(`http://20.235.96.205:3005/patient/register`, {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({
+    //             "name": values.email,
+    //             "password": values.password,
+    //             "address": "mumbai, maharashatra",
+    //             "state": "maharashatra",
+    //             "district": "mumbai",
+    //             "phone": 1234567890
+    //         })
+    //     })
+    //     console.log(await response.json());
+    //     return await response.json();
+    // };
 
     const loginClick = async (values) => {
-        const response = await axios.post(`http://20.235.96.205:3005/patient/register`, {
-        "name":values.email,
-        "password":values.password,
-        "address":"mumbai, maharashatra",
-        "state":"maharashatra",
-        "district":"mumbai",
-        "phone":1234567890});
-        console.log(response.data);
-        return response.data;  
+        let response = await health.post("/patient/register", {
+            "name": "Rahul",
+            "email": values.email,
+            "password": values.password,
+            "address": "mumbai, maharashatra",
+            "state": "maharashatra",
+            "district": "mumbai",
+            "phone": 1234567890
+        })
+        response = await response.data
+        return response;
     }
 
     return (
@@ -263,14 +265,14 @@ const FirebaseLogin = ({ ...others }) => {
                                     type="submit"
                                     variant="contained"
                                     color="secondary"
-                                    onClick={loginButton(values)}
+                                    onClick={() => loginClick(values)}
                                 >
                                     Sign in
                                 </Button>
                             </AnimateButton>
                         </Box>
                     </form>
-                )}   
+                )}
             </Formik>
         </>
     );
