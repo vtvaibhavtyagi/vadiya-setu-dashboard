@@ -73,58 +73,9 @@ const FirebaseRegister = ({ ...others }) => {
 
     return (
         <>
-            <Grid container direction="column" justifyContent="center" spacing={2}>
-                <Grid item xs={12}>
-                    <AnimateButton>
-                        <Button
-                            variant="outlined"
-                            fullWidth
-                            onClick={googleHandler}
-                            size="large"
-                            sx={{
-                                color: 'grey.700',
-                                backgroundColor: theme.palette.grey[50],
-                                borderColor: theme.palette.grey[100]
-                            }}
-                        >
-                            <Box sx={{ mr: { xs: 1, sm: 2, width: 20 } }}>
-                                <img src={Google} alt="google" width={16} height={16} style={{ marginRight: matchDownSM ? 8 : 16 }} />
-                            </Box>
-                            Sign up with Google
-                        </Button>
-                    </AnimateButton>
-                </Grid>
-                <Grid item xs={12}>
-                    <Box sx={{ alignItems: 'center', display: 'flex' }}>
-                        <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
-                        <Button
-                            variant="outlined"
-                            sx={{
-                                cursor: 'unset',
-                                m: 2,
-                                py: 0.5,
-                                px: 7,
-                                borderColor: `${theme.palette.grey[100]} !important`,
-                                color: `${theme.palette.grey[900]}!important`,
-                                fontWeight: 500,
-                                borderRadius: `${customization.borderRadius}px`
-                            }}
-                            disableRipple
-                            disabled
-                        >
-                            OR
-                        </Button>
-                        <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
-                    </Box>
-                </Grid>
-                <Grid item xs={12} container alignItems="center" justifyContent="center">
-                    <Box sx={{ mb: 2 }}>
-                        <Typography variant="subtitle1">Sign up with Email address</Typography>
-                    </Box>
-                </Grid>
-            </Grid>
+            
 
-            <Formik
+            {/* <Formik
                 initialValues={{
                     email: '',
                     password: '',
@@ -232,7 +183,6 @@ const FirebaseRegister = ({ ...others }) => {
                                 </FormHelperText>
                             )}
                         </FormControl>
-
                         {strength !== 0 && (
                             <FormControl fullWidth>
                                 <Box sx={{ mb: 2 }}>
@@ -252,6 +202,61 @@ const FirebaseRegister = ({ ...others }) => {
                                 </Box>
                             </FormControl>
                         )}
+                        
+                        <FormControl fullWidth sx={{ ...theme.typography.customInput }}>
+                            <InputLabel>Address</InputLabel>
+                            <OutlinedInput
+                                id="outlined-adornment-address-register"
+                                type="string"
+                                value={""}
+                                name="Address"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                inputProps={{}}
+                            />
+        
+                        </FormControl>
+
+                        <FormControl fullWidth  sx={{ ...theme.typography.customInput }}>
+                            <InputLabel>Pin Code</InputLabel>
+                            <OutlinedInput
+                                id="outlined-adornment-pincode-register"
+                                type="number"
+                                value={""}
+                                name="Pin Code"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                inputProps={{}}
+                            />
+                            
+                        </FormControl>
+
+                        <Grid container spacing={matchDownSM ? 0 : 2}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    fullWidth
+                                    label="Aadhar card"
+                                    margin="normal"
+                                    name="fname"
+                                    type="text"
+                                    defaultValue=""
+                                    sx={{ ...theme.typography.customInput }}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    fullWidth
+                                    label="Mobile Number"
+                                    margin="normal"
+                                    name="lname"
+                                    type="text"
+                                    defaultValue=""
+                                    sx={{ ...theme.typography.customInput }}
+                                />
+                            </Grid>
+                        </Grid>
+
+                        
 
                         <Grid container alignItems="center" justifyContent="space-between">
                             <Grid item>
@@ -298,7 +303,7 @@ const FirebaseRegister = ({ ...others }) => {
                         </Box>
                     </form>
                 )}
-            </Formik>
+            </Formik> */}
         </>
     );
 };

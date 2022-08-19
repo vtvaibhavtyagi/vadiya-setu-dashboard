@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Box, Card, Grid, Typography } from '@mui/material';
 
 // project imports
+import ReactCards from './ReactCards'
 import SubCard from 'ui-component/cards/SubCard';
 import MainCard from 'ui-component/cards/MainCard';
 import SecondaryAction from 'ui-component/cards/CardSecondaryAction';
@@ -62,7 +63,7 @@ const UIColor = () => (
         <SearchRecord />
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
-
+            <ReactCards/>
             </Grid>
         </Grid>
     </MainCard>

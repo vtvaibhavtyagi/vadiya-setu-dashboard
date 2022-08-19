@@ -1,0 +1,330 @@
+{
+    "pid": "r39",
+    "did": [],
+    "recordTime": "09/05/2019 00:00:00",
+    "disease": [
+      {
+        "name": "Panic disorder",
+        "dateOfReg": "09/05/2019 00:00:00",
+        "diagnosis": [
+          {
+            "date": "09/05/2019 00:00:00",
+            "report": "",
+            "vSymptoms": [
+              "Irregular heartbeat"
+            ]
+          }
+        ],
+        "desc": "Panic disorder      Panic disorder is an anxiety disorder characterized by recurring severe panic attacks. It may also include significant behavioral changes lasting at least a month and of ongoing worry about the implications or concern about having other attacks. The latter are called anticipatory attacks (DSM-IVR). Panic disorder is not the same as agoraphobia (fear of public places), although many afflicted with panic disorder also suffer from agoraphobia. ",
+        "status": "open",
+        "reports": [
+          "Report1",
+          "Report2"
+        ],
+        "drugs": [
+          {
+            "name": "Acamprosate (Campral)",
+            "date": "10/02/2021 00:00:00"
+          },
+          {
+            "name": "Clomipramine",
+            "date": "17/04/2021 00:00:00"
+          },
+          {
+            "name": "Lorazepam",
+            "date": "01/02/2021 00:00:00"
+          },
+          {
+            "name": "Imipramine",
+            "date": "27/04/2021 00:00:00"
+          },
+          {
+            "name": "Venlafaxine (Effexor)",
+            "date": "03/08/2020 00:00:00"
+          },
+          {
+            "name": "Buspirone (Buspar)",
+            "date": "07/06/2021 00:00:00"
+          },
+          {
+            "name": "Paroxetine (Paxil)",
+            "date": "08/09/2021 00:00:00"
+          },
+          {
+            "name": "Desvenlafaxine (Pristiq)",
+            "date": "10/08/2019 00:00:00"
+          },
+          {
+            "name": "Alprazolam (Xanax)",
+            "date": "18/01/2020 00:00:00"
+          },
+          {
+            "name": "Disulfiram (Antabuse)",
+            "date": "23/12/2019 00:00:00"
+          },
+          {
+            "name": "Clonazepam",
+            "date": "10/03/2022 00:00:00"
+          }
+        ],
+        "treatment": [
+          {
+            "date": "07/09/2020 00:00:00",
+            "desc": "Electrocardiogram"
+          },
+          {
+            "date": "20/09/2021 00:00:00",
+            "desc": "Toxicology screen"
+          },
+          {
+            "date": "11/07/2021 00:00:00",
+            "desc": "Occupational therapy assessment (Speech therapy)"
+          }
+        ]
+      },
+      {
+        "name": "Salivary gland disorder",
+        "dateOfReg": "09/05/2019 00:00:00",
+        "diagnosis": [
+          {
+            "date": "10/05/2019 00:00:00",
+            "report": "",
+            "vSymptoms": [
+              "Peripheral edema",
+              "Mouth dryness"
+            ]
+          }
+        ],
+        "desc": "Salivary gland disorder   Also known as Salivary Gland Disease      The salivary glands in mammals are exocrine glands, glands with ducts, that produce saliva. They also secrete amylase, an enzyme that breaks down starch into maltose. In other organisms such as insects, salivary glands are often used to produce biologically important proteins like silk or glues, and fly salivary glands contain polytene chromosomes that have been useful in genetic research.   Source: Wikipedia",
+        "status": "closed",
+        "reports": [
+          "",
+          ""
+        ],
+        "drugs": [
+          {
+            "name": "Meloxicam",
+            "date": "01/08/2019 00:00:00"
+          },
+          {
+            "name": "Calcitriol",
+            "date": "13/03/2020 00:00:00"
+          },
+          {
+            "name": "Mequinol-Tretinoin Topical",
+            "date": "26/03/2022 00:00:00"
+          },
+          {
+            "name": "Desflurane",
+            "date": "07/01/2022 00:00:00"
+          },
+          {
+            "name": "Rocuronium",
+            "date": "16/03/2020 00:00:00"
+          },
+          {
+            "name": "Cefadroxil",
+            "date": "15/04/2021 00:00:00"
+          },
+          {
+            "name": "Pramipexole (Mirapex)",
+            "date": "10/04/2020 00:00:00"
+          },
+          {
+            "name": "Biotin",
+            "date": "19/03/2020 00:00:00"
+          },
+          {
+            "name": "Saliva Substitutes",
+            "date": "31/01/2022 00:00:00"
+          },
+          {
+            "name": "Bleomycin",
+            "date": "19/10/2021 00:00:00"
+          },
+          {
+            "name": "Entacapone (Comtan)",
+            "date": "16/05/2019 00:00:00"
+          },
+          {
+            "name": "Dicyclomine",
+            "date": "05/03/2022 00:00:00"
+          }
+        ],
+        "treatment": [
+          {
+            "date": "12/03/2020 00:00:00",
+            "desc": "Other diagnostic procedures on skin and subcutaneous tissue"
+          },
+          {
+            "date": "07/01/2021 00:00:00",
+            "desc": "Excision (Removal)"
+          },
+          {
+            "date": "12/10/2019 00:00:00",
+            "desc": "Biopsy"
+          },
+          {
+            "date": "18/10/2019 00:00:00",
+            "desc": "Hemoglobin A1c measurement (Hemoglobin a1c test)"
+          }
+        ]
+      },
+      {
+        "name": "Idiopathic nonmenstrual bleeding",
+        "dateOfReg": "09/05/2019 00:00:00",
+        "diagnosis": [
+          {
+            "date": "11/05/2019 00:00:00",
+            "report": "",
+            "vSymptoms": [
+              "Heavy menstrual flow",
+              "Frequent menstruation",
+              "Vaginal discharge",
+              "Unpredictable menstruation",
+              "Long menstrual periods",
+              "Painful menstruation",
+              "Sweating",
+              "Intermenstrual bleeding",
+              "Painful urination"
+            ]
+          }
+        ],
+        "desc": "Idiopathic nonmenstrual bleeding      Idiopathic nonmenstrual bleeding is encountered rarely on Symcat. We will add more content to this page if enough people like you show interest.",
+        "status": "closed",
+        "reports": [
+          "",
+          ""
+        ],
+        "drugs": [
+          {
+            "name": "Ortho Cyclen",
+            "date": "22/04/2022 00:00:00"
+          },
+          {
+            "name": "Progesterone",
+            "date": "15/01/2022 00:00:00"
+          },
+          {
+            "name": "Orlistat (Alli)",
+            "date": "29/03/2021 00:00:00"
+          },
+          {
+            "name": "Sevoflurane",
+            "date": "24/09/2020 00:00:00"
+          },
+          {
+            "name": "Propofol",
+            "date": "05/11/2019 00:00:00"
+          },
+          {
+            "name": "Hexachlorophene Topical",
+            "date": "26/02/2021 00:00:00"
+          },
+          {
+            "name": "Medroxyprogesterone",
+            "date": "27/10/2020 00:00:00"
+          }
+        ],
+        "treatment": [
+          {
+            "date": "25/12/2020 00:00:00",
+            "desc": "Examination of breast"
+          },
+          {
+            "date": "01/10/2020 00:00:00",
+            "desc": "Complete blood count (Cbc)"
+          },
+          {
+            "date": "18/06/2020 00:00:00",
+            "desc": "Ultrasonography (Ultrasound)"
+          },
+          {
+            "date": "21/06/2021 00:00:00",
+            "desc": "Standard pregnancy test"
+          },
+          {
+            "date": "05/02/2020 00:00:00",
+            "desc": "Urinalysis"
+          },
+          {
+            "date": "19/01/2021 00:00:00",
+            "desc": "Glucose measurement (Glucose level)"
+          }
+        ]
+      },
+      {
+        "name": "Polycythemia vera",
+        "dateOfReg": "09/05/2019 00:00:00",
+        "diagnosis": [
+          {
+            "date": "12/05/2019 00:00:00",
+            "report": "",
+            "vSymptoms": [
+              "Regurgitation",
+              "Symptoms of eye",
+              "Fatigue",
+              "Joint swelling",
+              "Skin lesion",
+              "Dizziness",
+              "Joint pain"
+            ]
+          }
+        ],
+        "desc": "Polycythemia vera   Also known as Polycythemia Rubra Vera, P Vera, Erythremia, Primary Polycythemia, Erythrocythemia, Splenomegalic Polycythemia, Osler's Disease, Vaquez's Disease, and Proliferative Polycythemia      Polycythemia vera (PV, PCV) (also known as erythremia, primary polycythemia and polycythemia rubra vera) is a myeloproliferative blood disorder in which the bone marrow makes too many red blood cells. It may also result in the overproduction of white blood cells and platelets.   Source: Wikipedia",
+        "status": "closed",
+        "reports": [
+          "",
+          ""
+        ],
+        "drugs": [
+          {
+            "name": "Lutein",
+            "date": "25/08/2021 00:00:00"
+          },
+          {
+            "name": "Hydroxyurea",
+            "date": "17/05/2020 00:00:00"
+          },
+          {
+            "name": "Irbesartan (Avapro)",
+            "date": "22/05/2020 00:00:00"
+          },
+          {
+            "name": "Anagrelide",
+            "date": "19/10/2019 00:00:00"
+          },
+          {
+            "name": "Ramipril",
+            "date": "03/08/2020 00:00:00"
+          }
+        ],
+        "treatment": [
+          {
+            "date": "24/12/2019 00:00:00",
+            "desc": "Complete blood count (Cbc)"
+          },
+          {
+            "date": "06/06/2019 00:00:00",
+            "desc": "Ophthalmic examination and evaluation (Eye exam)"
+          },
+          {
+            "date": "08/01/2020 00:00:00",
+            "desc": "Examination of breast"
+          },
+          {
+            "date": "14/10/2021 00:00:00",
+            "desc": "Hematologic tests (Blood test)"
+          },
+          {
+            "date": "06/05/2022 00:00:00",
+            "desc": "Prostate specific antigen measurement (Prostate specific antigen test)"
+          },
+          {
+            "date": "26/11/2020 00:00:00",
+            "desc": "Complete physical skin exam performed (ML)"
+          }
+        ]
+      }
+    ]
+  }
