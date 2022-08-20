@@ -8,7 +8,7 @@ import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 import AuthWrapper1 from '../AuthWrapper1';
 import AuthCardWrapper from '../AuthCardWrapper';
 import Logo from 'ui-component/Logo';
-import AuthRegister from '../auth-forms/AuthRegister';
+import AuthRegister from '../auth-forms/AuthRegisterDoc';
 import AuthFooter from 'ui-component/cards/AuthFooter';
 
 // assets
@@ -69,7 +69,7 @@ const Register = () => {
                                         <Grid item container direction="column" alignItems="center" xs={12}>
                                             <Typography
                                                 component={Link}
-                                                to="/pages/login/login3"
+                                                to="/login"
                                                 variant="subtitle1"
                                                 sx={{ textDecoration: 'none' }}
                                             >

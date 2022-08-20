@@ -60,10 +60,10 @@ ColorBox.propTypes = {
 
 const UIColor = () => (
     <MainCard>
-        <SearchRecord />
         <Grid container spacing={gridSpacing}>
+        <SearchRecord />
             <Grid item xs={12}>
-            <ReactCards/>
+            
             </Grid>
         </Grid>
     </MainCard>

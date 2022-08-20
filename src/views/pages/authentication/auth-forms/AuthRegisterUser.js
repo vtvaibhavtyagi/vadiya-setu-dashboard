@@ -45,10 +45,6 @@ const FirebaseRegister = ({ ...others }) => {
     const customization = useSelector((state) => state.customization);
     const [showPassword, setShowPassword] = useState(false);
     const [checked, setChecked] = useState(true);
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [strength, setStrength] = useState(0);
     const [level, setLevel] = useState();
 
@@ -167,7 +163,7 @@ const FirebaseRegister = ({ ...others }) => {
 
 
                         <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
-                            <InputLabel htmlFor="outlined-adornment-email-register">Email Address / Username</InputLabel>
+                            <InputLabel htmlFor="outlined-adornment-email-register">Email Address</InputLabel>
                             <OutlinedInput
                                 id="outlined-adornment-email-register"
                                 type="email"
