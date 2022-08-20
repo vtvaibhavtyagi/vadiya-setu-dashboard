@@ -89,7 +89,7 @@ const FirebaseLogin = ({ ...others }) => {
         response = await response.data
         return response;
     }
-
+    
     return (
         <>
             <Grid container direction="column" justifyContent="center" spacing={2}>
