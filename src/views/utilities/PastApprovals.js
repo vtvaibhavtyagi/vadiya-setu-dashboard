@@ -1,142 +1,172 @@
-import PropTypes from 'prop-types';
-import { useState } from 'react';
+import PropTypes from "prop-types";
+import { useState } from "react";
 // material-ui
-import { useTheme } from '@mui/material/styles';
-import { Box, Card,CardContent, Grid, Typography,Avatar, Button,CardActions,Divider,Menu,MenuItem } from '@mui/material';
-
-
+import { useTheme } from "@mui/material/styles";
+import {
+  Box,
+  Card,
+  CardContent,
+  Grid,
+  Typography,
+  Avatar,
+  Button,
+  CardActions,
+  Divider,
+  Menu,
+  MenuItem,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  TablePagination,
+  Tooltip,
+  IconButton,
+} from "@mui/material";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+import MuiTableHead from "@material-ui/core/TableHead";
 // project imports
-import SubCard from 'ui-component/cards/SubCard';
-import MainCard from 'ui-component/cards/MainCard';
-import SkeletonPopularCard from 'ui-component/cards/Skeleton/PopularCard';
-import { gridSpacing } from 'store/constant';
+import SubCard from "ui-component/cards/SubCard";
+import MainCard from "ui-component/cards/MainCard";
+import SkeletonPopularCard from "ui-component/cards/Skeleton/PopularCard";
+import { gridSpacing } from "store/constant";
 // assets
+import FilterListIcon from "@mui/icons-material/FilterList";
 import { add, format, differenceInCalendarDays, isFuture } from "date-fns";
-import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
-import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
-import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
-import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
-
-
-  
-
+import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
+import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
+import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
+import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 
 // ===============================|| ApprovalHistory ||=============================== //
 
-
-
-
-
 const ApprovalHistory = ({ isLoading }) => {
-    const theme = useTheme();
+  const theme = useTheme();
 
-    const dateFormatter = (date) => {
-        return format(new Date(date), "dd/MMM");
-    };
+  const dateFormatter = (date) => {
+    return format(new Date(date), "dd/MMM/YYYY");
+  };
 
-    return (
-        <>
-            {isLoading ? (
-                <SkeletonPopularCard />
-            ) : (
-                <MainCard content={false}>
-                    <CardContent>
-                        <Grid container spacing={gridSpacing}>
+  const columns = [
+    { id: "name", label: "Doctor", minWidth: 170 },
+    { id: "hos", label: "Hospital", minWidth: 100 },
+    {
+      id: "disease",
+      label: "Disease",
+      minWidth: 170,
+      align: "right",
+      format: (value) => value.toLocaleString("en-US"),
+    },
 
-                            <Grid item xs={12}>
-                                <Grid container alignContent="center" justifyContent="space-between">
-                                    <Grid item>
-                                        <Typography variant="h3" color="inherit">Doctor</Typography>
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography variant="h3" color="inherit">Specilization</Typography>
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography variant="h3" color="inherit">Hospital</Typography>
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography variant="h3" color="inherit">Date of Approval</Typography>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
+    {
+      id: "date",
+      label: "Date",
+      minWidth: 170,
+      align: "right",
+      format: (value) => value.toFixed(2),
+    },
+  ];
 
-                            
-                            <Grid item xs={12}>
-                                
-                                    
-                                        <Grid container alignItems="center" justifyContent="space-between">
-                                            <Grid item>
-                                                <Typography variant="subtitle1" color="inherit">
-                                                   rahul
-                                                </Typography>
-                                            </Grid>
+  function createData(name, hos, disease, date) {
+    // const density = dateFormatter(date)
+    return { name, hos, disease, date };
+  }
 
-                                            <Grid item>
-                                                <Grid container alignItems="center" justifyContent="space-between">
-                                                    <Grid item>
-                                                        <Typography variant="subtitle1" color="inherit">
-                                                           gynecologist
-                                                        </Typography>
-                                                    </Grid>
-                                                    
-                                                </Grid>
-                                            </Grid>
+  const rows = [
+    createData("Rahul", "nukkad", "Gyno", "15/09/2022"),
+    createData("Rahul", "nukkad", "Gyno", "15/09/2022"),
+  ];
 
-                                            <Grid item>
-                                                <Grid container alignItems="center" justifyContent="space-between">
-                                                    <Grid item>
-                                                        <Typography variant="subtitle1" color="inherit">
-                                                            nukkad
-                                                        </Typography>
-                                                    </Grid>
-                                            
-                                                </Grid>
-                                            </Grid>
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-                                            <Grid item>
-                                                <Grid container alignItems="center" justifyContent="space-between">
-                            
-                                                    <Grid item>
-                                                        <Typography variant="subtitle1" color="inherit">
-                                                            {dateFormatter(15/12/2022)}
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                            
-                                
-                                
-                                
-                                <Divider sx={{ my: 1.5 }} />
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
-                                
-                            </Grid>
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+  const TableHead = withStyles((theme) => ({
+    root: {
+      backgroundColor: "#80cc28",
+    },
+  }))(MuiTableHead);
 
-
-
-                        </Grid>
-                    </CardContent>
-                    <CardActions sx={{ p: 1.25, pt: 0, justifyContent: 'center' }}>
-                        <Button size="small" disableElevation>
-                            View All
-                            <ChevronRightOutlinedIcon />
-                        </Button>
-                    </CardActions>
-                </MainCard>
-            )}
-        </>
-    );
+  return (
+    <>
+      {isLoading ? (
+        <SkeletonPopularCard />
+      ) : (
+        <MainCard content={false}>
+          <Paper sx={{ width: "100%", overflow: "hidden" }}>
+            <TableContainer>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    {columns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{ minWidth: column.minWidth }}
+                      >
+                        {column.label}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.code}
+                        >
+                          {columns.map((column) => {
+                            const value = row[column.id];
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {value}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[10, 25, 100]}
+              component="div"
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Paper>
+        </MainCard>
+      )}
+    </>
+  );
 };
 
 ApprovalHistory.propTypes = {
-    isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
 };
 
 export default ApprovalHistory;
 
-
-{/* <Grid item xs={3}>
+{
+  /* <Grid item xs={3}>
                                         <MoreHorizOutlinedIcon
                                             fontSize="small"
                                             sx={{
@@ -167,4 +197,5 @@ export default ApprovalHistory;
                                             <MenuItem onClick={handleClose}> This Month</MenuItem>
                                             <MenuItem onClick={handleClose}> This Year </MenuItem>
                                         </Menu>
-                            </Grid> */}
+                            </Grid> */
+}
