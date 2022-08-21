@@ -16,7 +16,10 @@ import ReportCard from "./ReportCard";
 
 const UIColor = () => (
   <Grid container spacing={gridSpacing}>
-    <SearchRecord />
+    <Grid>
+      <SearchRecord />
+    </Grid>
+
     <Grid item xs={12}>
       <ReactCards />
     </Grid>

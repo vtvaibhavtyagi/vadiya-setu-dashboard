@@ -14,8 +14,8 @@ import Button from "@mui/material/Button";
 import Zoom from "@mui/material/Zoom";
 import SubCard from "ui-component/cards/SubCard";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 var dis = Datajson.disease;
 var st_color_class = "card-title";
@@ -240,24 +240,10 @@ export default class ReactCards extends React.Component {
                   </Grid>
                 </Grid>
               </SubCard>
-
-              {/* <div className="card text-white shadow-lg bg-dark mb-3" >
-                                <div className="card-header">Disease</div>
-                                <div className="card-body">
-                                    <h5 className="card-title">{dis[this.state.dis_tar].name}</h5>
-                                    <p className="card-text text-justify ">{dis[this.state.dis_tar].desc}</p>
-                                </div>
-                            </div> */}
             </TinderLikeCard>
           </Grid>
 
           <Grid item xs={12} sm={4}>
-            {/* <ReactCards2
-              swipee="swipeDown"
-              dis2={dis[this.state.dis_tar]}
-              rc2_swipp={this.state.RC2_swip}
-              targett="diagno"
-            /> */}
             <TinderLikeCard
               images={arr}
               width="350"
@@ -287,13 +273,6 @@ export default class ReactCards extends React.Component {
           </Grid>
 
           <Grid item xs={12} sm={4}>
-            {/* <ReactCards2
-              swipee="swipeCornerDownRight"
-              dis2={dis[this.state.dis_tar]}
-              rc2_swipp={this.state.RC2_swip}
-              targett="treatment"
-            /> */}
-
             <TinderLikeCard
               images={arr}
               width="350"
@@ -323,38 +302,9 @@ export default class ReactCards extends React.Component {
               </SubCard>
             </TinderLikeCard>
           </Grid>
-
-          <Grid item>
-          <Grid container alignItems="center" justifyContent="centre" >
-            <Grid item>
-              <ArrowBackIosIcon
-                onClick={this.onTinderSwipe.bind(this)}
-                sx={{
-                  color: "Orange",
-                  ml: 2,
-                }}
-                fontSize="large"
-              />
-            </Grid>
-            <Grid item>
-              <ArrowForwardIosIcon
-                onClick={this.onTinderSwipe.bind(this)}
-                sx={{
-                  color: "Orange",
-                  ml: 2,
-                }}
-                fontSize="large"
-              />
-            </Grid>
-          </Grid>
-        </Grid>
-
           
-        </Grid>
 
-        
-
-        {/* <Grid item xs={4}>
+          <Grid item xs={4}>
             <button
               className="btn btn-warning"
               style={{ marginTop: "230px", width: "68%" }}
@@ -428,24 +378,38 @@ export default class ReactCards extends React.Component {
                 />
               </svg>
             </button>
-          </Grid> */}
+          </Grid> 
 
-        {/* <button
-              className="btn btn-danger"
-              style={{ marginTop: "20px", width: "36%" }}
-              onClick={this.onTinderSwipe.bind(this)}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                fill="currentColor"
-                className="bi bi-arrow-down-circle-fill"
-                viewBox="0 0 16 16"
-              >
-                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" />
-              </svg>
-            </button> */}
+      
+
+          <CardActions sx={{ p: 1.25, pt: 0}}>
+            <Grid item>
+              <ArrowBackIosIcon
+                onClick={this.onTinderSwipe.bind(this)}
+                sx={{
+                  color: "white",
+                  ml: 2,
+                }}
+                fontSize="large"
+              />
+            </Grid>
+            <Grid item>
+              <ArrowForwardIosIcon
+                onClick={this.onTinderSwipe.bind(this)}
+                sx={{
+                  color: "white",
+                  ml: 2,
+                }}
+                fontSize="large"
+              />
+            </Grid>
+          </CardActions>
+
+
+          
+        
+        </Grid>
+
 
         <Modal
           open={this.state.zooom}
