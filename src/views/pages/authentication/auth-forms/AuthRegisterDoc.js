@@ -36,6 +36,7 @@ import { strengthColor, strengthIndicator } from "utils/password-strength";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
+import health from  'api/health';
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
 const FirebaseRegister = ({ ...others }) => {
@@ -45,12 +46,48 @@ const FirebaseRegister = ({ ...others }) => {
   const customization = useSelector((state) => state.customization);
   const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(true);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setLastName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
   const [strength, setStrength] = useState(0);
   const [level, setLevel] = useState();
+
+  const SingUpData = async (data) => {
+    let response = await health.post("/doctor/register", data)
+    response = await response.data
+    console.log(response)
+    return response;
+}
+
+  const SingUpSubmit = (values) => {
+    // e.preventDefault();
+    var data ={     
+      "address": values.address,
+      "aadhar": values.aadhar,
+      "specilization": values.specilization,      
+      "email": values.email,
+      "hospitalDetails": values.hospital,
+      "name":  values.fname + ' ' + values.lname,
+      "password": values.password ,
+      "phone": values.mobno,
+      "pincode": values.pincode,
+      // "state": values.istate
+    } 
+
+    let res = SingUpData(data);
+    // let navigate = useNavigate(); 
+    if (res.status === 'success'){
+            // const routeChange = () =>{ 
+            // let path = `/pages/login/login3`; 
+            // navigate(path);
+            // }
+            console.log("SuccessFullSingUp")
+    }else{
+        console.log("errorInSingUp")
+    }        
+    
+  };
 
   const googleHandler = async () => {
     console.error("Register");
@@ -105,6 +142,7 @@ const FirebaseRegister = ({ ...others }) => {
           pincode: Yup.number().required("Pin Code is Required"),
           field: Yup.string().required("Field is Required"),
           IMRno: Yup.number().required("IMR id. is Required"),
+
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
@@ -112,6 +150,7 @@ const FirebaseRegister = ({ ...others }) => {
               setStatus({ success: true });
               setSubmitting(false);
               console.log(values.email);
+              SingUpSubmit(values);
             }
           } catch (err) {
             console.error(err);
@@ -198,7 +237,7 @@ const FirebaseRegister = ({ ...others }) => {
               <Grid item xs={12} sm={6}>
                 <FormControl
                   fullWidth
-                  error={Boolean(touched.field && errors.field)}
+                  error={Boolean(touched.specilization && errors.specilization)}
                   sx={{ ...theme.typography.customInput }}
                 >
                   <InputLabel htmlFor="outlined-adornment-spec-register">
@@ -209,17 +248,17 @@ const FirebaseRegister = ({ ...others }) => {
                     type="name"
                     value={values.specilization}
                     // onChange={e => setEmail(e.target.value)}
-                    name="fname"
+                    name="specilization"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     inputProps={{}}
                   />
-                  {touched.field && errors.field && (
+                  {touched.specilization && errors.specilization && (
                     <FormHelperText
                       error
                       id="standard-weight-helper-text--register"
                     >
-                      {errors.field}
+                      {errors.specilization}
                     </FormHelperText>
                   )}
                 </FormControl>
@@ -418,7 +457,7 @@ const FirebaseRegister = ({ ...others }) => {
                   </InputLabel>
                   <OutlinedInput
                     id="outlined-adornment-mobno-register"
-                    type="name"
+                    type="number"
                     value={values.mobno}
                     name="mobno"
                     onBlur={handleBlur}
@@ -470,7 +509,7 @@ const FirebaseRegister = ({ ...others }) => {
 
             <FormControl
                 fullWidth
-                error={Boolean(touched.field && errors.field)}
+                error={Boolean(touched.hospital && errors.hospital)}
                 sx={{ ...theme.typography.customInput }}
               >
                 <InputLabel htmlFor="outlined-adornment-hos-register">
@@ -481,17 +520,17 @@ const FirebaseRegister = ({ ...others }) => {
                   type="name"
                   value={values.hospital}
                   // onChange={e => setEmail(e.target.value)}
-                  name="Hospital"
+                  name="hospital"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   inputProps={{}}
                 />
-                {touched.field && errors.field && (
+                {touched.hospital && errors.hospital && (
                   <FormHelperText
                     error
                     id="standard-weight-helper-text--register"
                   >
-                    { errors.field}
+                    { errors.hospital}
                   </FormHelperText>
                 )}
               </FormControl>

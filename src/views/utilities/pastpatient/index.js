@@ -16,18 +16,59 @@ import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 
+import { useContext, useEffect } from 'react';
+import AuthContext from 'AuthContext';
+import { useNavigate  } from "react-router-dom";
 
-
+import health from "../../../../src/api/health"
 
 
 // ===============================|| PatientDetail ||=============================== //
 
+const getPendingRequestsData = async (AuthState) => {
+  
+    let response = await health.get("/doctor/pending", {
+        headers :{
+            "did": AuthState.state.id ,
+            "Authorization" :"Bearer "+AuthState.state.auth_token       
+        }
+    })
+    response = await response.data
+    return response ;
+  }
 
+  const getApprovedRequestsData = async (AuthState) => {
 
+    let response = await health.get("/doctor/patientlist", {
+        headers :{
+            "did": AuthState.state.id ,
+            "Authorization" :"Bearer "+AuthState.state.auth_token       
+        }
+    })
+    response = await response.data
 
+    return response ;
+  }
 
 const PatientDetail = ({ isLoading }) => {
     const theme = useTheme();
+
+    const AuthState = useContext(AuthContext);
+
+  const [patientList, setPatientList] = useState([])
+    useEffect(() => {
+        async function someFunc(){
+            let respons = await getPendingRequestsData(AuthState);
+            let respons1 = await getApprovedRequestsData(AuthState);
+            if (respons.status === "success" && respons1.status === "success"){
+
+                setPatientList( respons.patientList.concat(respons1.patientList) );
+            }          
+            console.log(respons);
+        }
+         
+        someFunc();
+    },[]);
 
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -65,14 +106,14 @@ const PatientDetail = ({ isLoading }) => {
                                 </Grid>
                             </Grid>
 
-                            
+                            { patientList.map( (ele) =>  
                             <Grid item xs={12}>
                                 
                                     
                                         <Grid container alignItems="center" justifyContent="space-between">
                                             <Grid item>
                                                 <Typography variant="subtitle1" color="inherit">
-                                                   jaggu
+                                                   {ele.patientName}
                                                 </Typography>
                                             </Grid>
 
@@ -80,7 +121,7 @@ const PatientDetail = ({ isLoading }) => {
                                                 <Grid container alignItems="center" justifyContent="space-between">
                                                     <Grid item>
                                                         <Typography variant="subtitle1" color="inherit">
-                                                           15/2/2022
+                                                           {ele.reqTime}
                                                         </Typography>
                                                     </Grid>
                                                     
@@ -91,7 +132,7 @@ const PatientDetail = ({ isLoading }) => {
                                                 <Grid container alignItems="center" justifyContent="space-between">
                                                     <Grid item>
                                                         <Typography variant="subtitle1" color="inherit">
-                                                            Aids
+                                                            {ele.reqTime}
                                                         </Typography>
                                                     </Grid>
                                             
@@ -102,16 +143,23 @@ const PatientDetail = ({ isLoading }) => {
                                                 <Grid container alignItems="center" justifyContent="space-between">
                             
                                                     <Grid item>
+                                                    {
+
+                                                        ele.status ?
+                                                        <TaskAltIcon sx={{                                                      
+                                                            color: theme.palette.success.dark,
+                                                            ml: 2
+                                                        }} fontSize="large" />
+                                                       :
+                                                       <HighlightOffIcon sx={{                                                      
+                                                        color: theme.palette.error.dark,
+                                                        ml: 2
+                                                    }} fontSize="large"  />
+                                                                                                                   
+                                                    
+                                                    }                                                      
                                                         
-                                                        {/* <TaskAltIcon sx={{                                                      
-                                                                color: theme.palette.success.dark,
-                                                                ml: 2
-                                                            }} fontSize="large" /> */}
-                                                        
-                                                            <HighlightOffIcon sx={{                                                      
-                                                                color: theme.palette.error.dark,
-                                                                ml: 2
-                                                            }} fontSize="large"  />
+                                                           
                                                        
                                                         
                                                     </Grid>
@@ -126,7 +174,7 @@ const PatientDetail = ({ isLoading }) => {
 
                                 
                             </Grid>
-
+                            )}
 
 
                         </Grid>

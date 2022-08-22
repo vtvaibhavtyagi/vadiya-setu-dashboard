@@ -36,6 +36,7 @@ import { strengthColor, strengthIndicator } from 'utils/password-strength';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
+import health from  'api/health';
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
 const FirebaseRegister = ({ ...others }) => {
@@ -47,6 +48,43 @@ const FirebaseRegister = ({ ...others }) => {
     const [checked, setChecked] = useState(true);
     const [strength, setStrength] = useState(0);
     const [level, setLevel] = useState();
+
+    const SingUpData = async (data) => {
+        let response = await health.post("/patient/register", data)
+        response = await response.data
+        console.log(response)
+        return response;
+    }
+    
+      const SingUpSubmit = (values) => {
+        // e.preventDefault();
+        var data = {
+           
+           
+            "address": values.address,
+            "aadhar": values.aadhar,
+            "district": values.district,            
+            "email": values.email,
+            "name": values.fname + ' ' + values.lname ,
+            "password": values.password ,
+            "phone": values.mobno,
+            "pincode": values.pincode,
+            "state": values.istate
+           
+          }
+        let res = SingUpData(data);
+        // let navigate = useNavigate(); 
+        if (res.status === 'success'){
+                // const routeChange = () =>{ 
+                // let path = `/pages/login/login3`; 
+                // navigate(path);
+                // }
+                console.log("SuccessFullSingUp")
+        }else{
+            console.log("errorInSingUp")
+        }        
+        
+      };
 
     const googleHandler = async () => {
         console.error('Register');
@@ -84,7 +122,9 @@ const FirebaseRegister = ({ ...others }) => {
                     address:'',
                     pincode:'',
                     aadhar:'',
-                    mobno:''
+                    mobno:'',
+                    istate:'',
+                    district:''
 
                 }}
                 validationSchema={Yup.object().shape({
@@ -95,7 +135,9 @@ const FirebaseRegister = ({ ...others }) => {
                     address: Yup.string().required('Address is Required'),
                     aadhar: Yup.number().required('Aadhar No. is Required'),
                     mobno: Yup.number().required('Mobile no. is Required'),
-                    pincode: Yup.number().required('Pin Code is Required')
+                    pincode: Yup.number().required('Pin Code is Required'),
+                    istate: Yup.string().required('State is Required'),
+                    district: Yup.string().required('District is Required')
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
@@ -103,6 +145,7 @@ const FirebaseRegister = ({ ...others }) => {
                             setStatus({ success: true });
                             setSubmitting(false);
                             console.log(values.email);
+                            SingUpSubmit(values);
                         }
                     } catch (err) {
                         console.error(err);
@@ -159,8 +202,47 @@ const FirebaseRegister = ({ ...others }) => {
                             </Grid>
                         </Grid>
 
-                        
-
+                        <Grid container spacing={matchDownSM ? 0 : 2}>
+                            <Grid item xs={12} sm={6}>
+                            <FormControl fullWidth error={Boolean(touched.mobno && errors.mobno)} sx={{ ...theme.typography.customInput }}>
+                            <InputLabel htmlFor="outlined-adornment-mobno-register">Mobile Number</InputLabel>
+                            <OutlinedInput
+                                id="outlined-adornment-mobno-register"
+                                type="name"
+                                value={values.mobno}
+                                name="mobno"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                inputProps={{}}
+                            />
+                            {touched.mobno && errors.mobno && (
+                                <FormHelperText error id="standard-weight-helper-text--register">
+                                    {errors.mobno}
+                                </FormHelperText>
+                            )}
+                        </FormControl>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                            <FormControl fullWidth error={Boolean(touched.aadhar && errors.aadhar)} sx={{ ...theme.typography.customInput }}>
+                            <InputLabel htmlFor="outlined-adornment-aadhar-register">Aadhar Number</InputLabel>
+                            <OutlinedInput
+                                id="outlined-adornment-aadhar-register"
+                                type="number"
+                                value={values.aadhar}
+                                // onChange={e => setEmail(e.target.value)}
+                                name="aadhar"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                inputProps={{}}
+                            />
+                            {touched.aadhar && errors.aadhar && (
+                                <FormHelperText error id="standard-weight-helper-text--register">
+                                    {errors.aadhar}
+                                </FormHelperText>
+                            )}
+                        </FormControl>
+                            </Grid>
+                        </Grid>
 
                         <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
                             <InputLabel htmlFor="outlined-adornment-email-register">Email Address</InputLabel>
@@ -258,6 +340,51 @@ const FirebaseRegister = ({ ...others }) => {
                                 </FormHelperText>
                             )}
                         </FormControl>
+                            
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                            <FormControl fullWidth error={Boolean(touched.district && errors.district)} sx={{ ...theme.typography.customInput }}>
+                            <InputLabel htmlFor="outlined-adornment-district-register">District</InputLabel>
+                            <OutlinedInput
+                                id="outlined-adornment-district-register"
+                                type="name"
+                                value={values.district}
+                                // onChange={e => setEmail(e.target.value)}
+                                name="district"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                inputProps={{}}
+                            />
+                            {touched.district && errors.district && (
+                                <FormHelperText error id="standard-weight-helper-text--register">
+                                    {errors.district}
+                                </FormHelperText>
+                            )}
+                        </FormControl>
+                            </Grid>
+                        </Grid>
+
+
+                        <Grid container spacing={matchDownSM ? 0 : 2}>
+                            <Grid item xs={12} sm={6}>
+                            <FormControl fullWidth error={Boolean(touched.istate && errors.istate)} sx={{ ...theme.typography.customInput }}>
+                            <InputLabel htmlFor="outlined-adornment-istate-register">State</InputLabel>
+                            <OutlinedInput
+                                id="outlined-adornment-istate-register"
+                                type="name"
+                                value={values.istate}
+                                // onChange={e => setEmail(e.target.value)}
+                                name="istate"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                inputProps={{}}
+                            />
+                            {touched.istate && errors.istate && (
+                                <FormHelperText error id="standard-weight-helper-text--register">
+                                    {errors.istate}
+                                </FormHelperText>
+                            )}
+                        </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={6}>
                             <FormControl fullWidth error={Boolean(touched.pincode && errors.pincode)} sx={{ ...theme.typography.customInput }}>
@@ -282,106 +409,9 @@ const FirebaseRegister = ({ ...others }) => {
                         </Grid>
 
 
-                        <Grid container spacing={matchDownSM ? 0 : 2}>
-                            <Grid item xs={12} sm={6}>
-                            <FormControl fullWidth error={Boolean(touched.mobno && errors.mobno)} sx={{ ...theme.typography.customInput }}>
-                            <InputLabel htmlFor="outlined-adornment-mobno-register">Mobile Number</InputLabel>
-                            <OutlinedInput
-                                id="outlined-adornment-mobno-register"
-                                type="name"
-                                value={values.mobno}
-                                name="mobno"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                inputProps={{}}
-                            />
-                            {touched.mobno && errors.mobno && (
-                                <FormHelperText error id="standard-weight-helper-text--register">
-                                    {errors.mobno}
-                                </FormHelperText>
-                            )}
-                        </FormControl>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                            <FormControl fullWidth error={Boolean(touched.aadhar && errors.aadhar)} sx={{ ...theme.typography.customInput }}>
-                            <InputLabel htmlFor="outlined-adornment-aadhar-register">Aadhar Number</InputLabel>
-                            <OutlinedInput
-                                id="outlined-adornment-aadhar-register"
-                                type="number"
-                                value={values.aadhar}
-                                // onChange={e => setEmail(e.target.value)}
-                                name="aadhar"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                inputProps={{}}
-                            />
-                            {touched.aadhar && errors.aadhar && (
-                                <FormHelperText error id="standard-weight-helper-text--register">
-                                    {errors.aadhar}
-                                </FormHelperText>
-                            )}
-                        </FormControl>
-                            </Grid>
-                        </Grid>
+                       
                         
-                        
-                
-
-                        {/* <Grid container spacing={matchDownSM ? 0 : 2}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    fullWidth
-                                    label="Address"
-                                    margin="normal"
-                                    name="fname"
-                                    type="text"
-                                    defaultValue=""
-                                    sx={{ ...theme.typography.customInput }}
-                                    required
-                                />
-                            </Grid>
-                            <Grid item xs={6} sm={6}>
-                                <TextField
-                                    fullWidth
-                                    label="Pin Code"
-                                    margin="normal"
-                                    name="lname"
-                                    type="text"
-                                    defaultValue=""
-                                    sx={{ ...theme.typography.customInput }}
-                                    required
-                                />
-                            </Grid>
-                        </Grid>
-
-                        <Grid container spacing={matchDownSM ? 0 : 2}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    fullWidth
-                                    label="Aadhar card"
-                                    margin="normal"
-                                    name="fname"
-                                    type="text"
-                                    defaultValue=""
-                                    sx={{ ...theme.typography.customInput }}
-                                    required
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    fullWidth
-                                    label="Mobile Number"
-                                    margin="normal"
-                                    name="lname"
-                                    type="text"
-                                    defaultValue=""
-                                    sx={{ ...theme.typography.customInput }}
-                                    required
-                                />
-                            </Grid>
-                        </Grid> */}
-
-                        
+                                                
 
                         <Grid container alignItems="center" justifyContent="space-between">
                             <Grid item>

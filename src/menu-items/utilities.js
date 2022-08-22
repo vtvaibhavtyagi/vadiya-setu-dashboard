@@ -60,7 +60,7 @@ const utilities = {
                     id: 'tabler-Pending-Approvals',
                     title: 'Pending Approvals',
                     type: 'item',
-                    url: '/icons/tabler-icons',
+                    url: '/patient/pendingApprovals',
                     breadcrumbs: false
                 },
                 {

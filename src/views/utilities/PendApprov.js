@@ -25,10 +25,73 @@ import { gridSpacing } from "store/constant";
 import { add, format, differenceInCalendarDays, isFuture } from "date-fns";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
 
+import { useContext, useEffect } from 'react';
+import AuthContext from 'AuthContext';
+import { useNavigate  } from "react-router-dom";
+
+import health from "../../../src/api/health"
 // ===============================|| PenApprovals ||=============================== //
+
+const getRequestsData = async (AuthState) => {
+  console.log( AuthState.state.id);
+  let response = await health.get("/patient/showreq", {
+      headers :{
+          "pid": AuthState.state.id ,
+          "Authorization" :"Bearer "+AuthState.state.auth_token       
+      }
+  })
+  response = await response.data
+
+  return response;
+}
+
+
+function AcceptReq( AuthState ,ele){
+
+  var data = {
+    "aid": ele.aid,
+    "did": ele.did
+  }
+ console.log("Button Dabaya")
+  let response =  health.post("/patient/grant", data = data,
+     { headers : {
+          "pid": ele.pid ,
+          "Authorization" :"Bearer "+AuthState.state.auth_token       
+      }}
+  )
+  response =  response.data
+
+  return response;
+}
+
 
 const PenApprovals = () => {
   const theme = useTheme();
+
+  const AuthState = useContext(AuthContext);
+  var isEmpty = false ;
+  const [patientList, setPatientList] = useState([])
+    useEffect(() => {
+        async function someFunc(){
+            let respons = await getRequestsData(AuthState);
+            if (respons.status === "success"){
+              if (respons.payload.length > 0){
+                setPatientList( respons.payload );
+              }else{
+                  isEmpty = true
+                  console.log("erwt")
+              }
+
+               
+            }          
+            console.log(respons , AuthState.state.id);
+        }
+         
+        someFunc();
+    },[]);
+
+
+   
 
   const dateFormatter = (date) => {
     return format(new Date(date), "dd/MMM");
@@ -69,6 +132,8 @@ const PenApprovals = () => {
             </Grid>
 
             {/* doctor details */}
+            { 
+            patientList.map( (ele) =>  
             <Grid item xs={12}>
               <Grid
                 container
@@ -77,7 +142,7 @@ const PenApprovals = () => {
               >
                 <Grid item>
                   <Typography variant="subtitle1" color="inherit">
-                    rahul
+                    {ele.doctorName}
                   </Typography>
                 </Grid>
 
@@ -89,7 +154,7 @@ const PenApprovals = () => {
                   >
                     <Grid item>
                       <Typography variant="subtitle1" color="inherit">
-                        gynecologist
+                      {ele.did}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -103,7 +168,7 @@ const PenApprovals = () => {
                   >
                     <Grid item>
                       <Typography variant="subtitle1" color="inherit">
-                        nukkad
+                      {ele.reqTime}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -125,6 +190,7 @@ const PenApprovals = () => {
                             disableElevation
                             sx={{  backgroundColor: theme.palette.success.light,
                                 color: theme.palette.success.dark }}
+                            onClick = {() =>AcceptReq(AuthState , ele)}
                           >
                             Accept
                           </Button>
@@ -158,6 +224,8 @@ const PenApprovals = () => {
 
               <Divider sx={{ my: 1.5 }} />
             </Grid>
+
+              )  }
           </Grid>
 
         </CardContent>
@@ -165,7 +233,7 @@ const PenApprovals = () => {
         
         <CardActions sx={{ p: 1.25, pt: 0, justifyContent: "center" }}>
           <Button size="small" disableElevation>
-            View All
+            { isEmpty ?  "View All" :"No pending requests" }
             <ChevronRightOutlinedIcon />
           </Button>
         </CardActions>
