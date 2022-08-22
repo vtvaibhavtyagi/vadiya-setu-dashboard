@@ -8,7 +8,7 @@ import Loadable from 'ui-component/Loadable';
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
 
 // utilities routing
-const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')));
+const UtilsTypography = Loadable(lazy(() => import('views/utilities/vadiyaSetu.js')));
 const UtilsMedicalRecord = Loadable(lazy(() => import('views/utilities/MedicalRecord')));
 const Utilspastpatient = Loadable(lazy(() => import('views/utilities/pastpatient')));
 const Utilscurrpatient = Loadable(lazy(() => import('views/utilities/currPatient')));
