@@ -36,7 +36,9 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Google from 'assets/images/icons/social-google.svg';
 import health from "../../../../api/health"
 import axios from 'axios';
-
+import { useContext } from 'react';
+import AuthContext from 'AuthContext';
+import { useNavigate  } from "react-router-dom";
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const FirebaseLogin = ({ ...others }) => {
@@ -76,24 +78,46 @@ const FirebaseLogin = ({ ...others }) => {
     //     return await response.json();
     // };
 
-    const loginClick = async (values) => {
-        let response = await health.post("/patient/register", {
-            "name": "Rahul",
+    
+    const AuthState = useContext(AuthContext);
+    var history = useNavigate();     
+    
+    async function loginClick (values)  {
+        var data = {            
             "email": values.email,
-            "password": values.password,
-            "address": "mumbai, maharashatra",
-            "state": "maharashatra",
-            "district": "mumbai",
-            "phone": 1234567890
-        })
-        response = await response.data
-        return response;
+            "password": values.password            
+        }
+        var response ;
+        var session_data = {};
+        if ( values.role === 'doc'){
+            let response = await health.post("/doctor/login", data=data )
+            response = await response.data
+            session_data = {
+                id : response.did,
+                auth_token : response.accessToken,
+                role : 'doc'
+            }
+            console.log("Doc",response);
+        }else{
+            let response = await health.post("/patient/login", data=data )
+            response = await response.data   
+            session_data = {
+                id : response.pid,
+                auth_token : response.accessToken,
+                role : 'pat'
+            } 
+            console.log("Pat",response);        
+        }        
+            AuthState.update(session_data);
+            console.log(AuthState.state.id);
+        history("/");
     }
 
-    return (
+    return (        
         <>
+        
             <Grid container direction="column" justifyContent="center" spacing={2}>
-            
+            <h1>{AuthState.state.id}</h1>
                 <Grid item xs={12}>
                     <Box
                         sx={{
@@ -117,13 +141,15 @@ const FirebaseLogin = ({ ...others }) => {
 
             <Formik
                 initialValues={{
-                    email: 'info@codedthemes.com',
+                    email: 'opensource_pandits@spit.ac.in',
                     password: '123456',
+                    role:'doc',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
                     password: Yup.string().max(255).required('Password is required')
+                    
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
@@ -202,12 +228,26 @@ const FirebaseLogin = ({ ...others }) => {
                                 control={
                                     <Checkbox
                                         checked={checked}
-                                        onChange={(event) => setChecked(event.target.checked)}
+                                        onChange={(event) => {
+                                            if( event.target.checked ){
+                                                setChecked(true);
+                                                values.role = 'doc';
+                                                console.log(event.target.checked,values.role);
+                                            }else{
+                                                setChecked(false);
+                                                values.role = 'pat';
+                                                console.log(event.target.checked,values.role);
+                                            }
+                                            
+                                            }
+                                        }
                                         name="checked"
                                         color="primary"
                                     />
                                 }
-                                label="Remember me"
+                                label="Log in as Doctor"
+                                value={values.role}
+                                name="role"
                             />
                             <Typography variant="subtitle1" color="secondary" sx={{ textDecoration: 'none', cursor: 'pointer' }}>
                                 Forgot Password?
