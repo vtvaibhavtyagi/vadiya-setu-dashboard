@@ -8,10 +8,11 @@ import Loadable from 'ui-component/Loadable';
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
 
 // utilities routing
-const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')));
+const UtilsTypography = Loadable(lazy(() => import('views/utilities/VaidyaSetu')));
 const UtilsMedicalRecord = Loadable(lazy(() => import('views/utilities/MedicalRecord')));
 const Utilspastpatient = Loadable(lazy(() => import('views/utilities/pastpatient')));
 const Utilscurrpatient = Loadable(lazy(() => import('views/utilities/currPatient')));
+const Account_settings = Loadable(lazy(() => import('views/utilities/Account_settings')));
 const UtilsShadow = Loadable(lazy(() => import('views/utilities/Shadow')));
 const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/PastApprovals')));
 const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/PendApprov')));
@@ -73,6 +74,15 @@ const MainRoutes = {
                 {
                     path: 'curr-patient',
                     element: <Utilscurrpatient />
+                }
+            ]
+        },
+        {
+            path: 'profile',
+            children: [
+                {
+                    path: 'account-settings',
+                    element: <Account_settings />
                 }
             ]
         },

@@ -36,6 +36,7 @@ import Transitions from 'ui-component/extended/Transitions';
 import UpgradePlanCard from './UpgradePlanCard';
 import User1 from 'assets/images/users/user-round.svg';
 
+
 // assets
 import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
 
@@ -86,6 +87,13 @@ const ProfileSection = () => {
 
         prevOpen.current = open;
     }, [open]);
+
+    const account_settings=()=>{
+        console.log("account_sett_clicked");
+        navigate("/profile/account-settings");
+        
+    }
+
 
     return (
         <>
@@ -247,7 +255,8 @@ const ProfileSection = () => {
                                                 <ListItemButton
                                                     sx={{ borderRadius: `${customization.borderRadius}px` }}
                                                     selected={selectedIndex === 0}
-                                                    onClick={(event) => handleListItemClick(event, 0, '/user/account-profile/profile1')}
+                                                    // onClick={(event) => handleListItemClick(event, 0, '/user/account-profile/profile1')}
+                                                    onClick={(event) => handleListItemClick(event, account_settings)}
                                                 >
                                                     <ListItemIcon>
                                                         <IconSettings stroke={1.5} size="1.3rem" />
