@@ -19,8 +19,12 @@ import MainCard from "ui-component/cards/MainCard";
 import SecondaryAction from "ui-component/cards/CardSecondaryAction";
 import { gridSpacing } from "store/constant";
 import TableChartOutlinedIcon from "@mui/icons-material/TableChartOutlined";
+import { useEffect, useState } from 'react';
+import AuthContext from 'AuthContext';
+import { useContext } from 'react';
+import { useNavigate  } from "react-router-dom";
 // ==============================|| TYPOGRAPHY ||============================== //
-import Particle from "themes/particle";
+// import Particle from "themes/particle";
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: theme.palette.primary.dark,
@@ -51,6 +55,22 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 const VadiyaSetu = () => {
   const theme = useTheme();
+  const AuthState = useContext(AuthContext);
+    var history = useNavigate();  
+
+  const [isLoading, setLoading] = useState(true);
+    useEffect(() => {
+        setLoading(false);
+        if( AuthState.state.id ){
+          if( AuthState.state.role !== 'pat'  ){
+            history("/utils/patient-history");
+          }
+        }else{
+          history("/login");
+        }
+
+    }, []);
+
 
   return (
     <>
@@ -241,7 +261,7 @@ const VadiyaSetu = () => {
                         >
                           <ListItemAvatar>
                             <QRCode
-                              value="hey"
+                              value={AuthState.state.id}
                               bgColor="#1D88E5"
                               fgColor="#DFF6FF"
                               size={152}
@@ -265,7 +285,7 @@ const VadiyaSetu = () => {
                       </Grid>
                       <Grid item>
                         <Typography variant="h2" color="inherit">
-                          {"1234567"}
+                          {AuthState.state.id}
                         </Typography>
                       </Grid>
                     </Grid>

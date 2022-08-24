@@ -39,6 +39,9 @@ import User1 from 'assets/images/users/user-round.svg';
 // assets
 import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
 
+import AuthContext from 'AuthContext';
+import { useContext } from 'react';
+
 // ==============================|| PROFILE MENU ||============================== //
 
 const ProfileSection = () => {
@@ -51,12 +54,19 @@ const ProfileSection = () => {
     const [notification, setNotification] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [open, setOpen] = useState(false);
+
+    const AuthState = useContext(AuthContext);
+    var history = useNavigate();  
     /**
      * anchorRef is used on different componets and specifying one type leads to other components throwing an error
      * */
     const anchorRef = useRef(null);
     const handleLogout = async () => {
-        console.log('Logout');
+        console.log(AuthState.state)
+        localStorage.setItem("auth_data", JSON.stringify("")); 
+        AuthState.update(localStorage.getItem("auth_data"));
+        console.log(AuthState.state)
+        history("/login");
     };
 
     const handleClose = (event) => {
@@ -110,6 +120,7 @@ const ProfileSection = () => {
                     }
                 }}
                 icon={
+                    <>
                     <Avatar
                         src={User1}
                         sx={{
@@ -122,6 +133,9 @@ const ProfileSection = () => {
                         aria-haspopup="true"
                         color="inherit"
                     />
+                    <Typography> {AuthState.state.email} </Typography>
+                    
+                    </>
                 }
                 label={<IconSettings stroke={1.5} size="1.5rem" color={theme.palette.primary.main} />}
                 variant="outlined"
@@ -158,8 +172,8 @@ const ProfileSection = () => {
                                         <Stack>
                                             <Stack direction="row" spacing={0.5} alignItems="center">
                                                 <Typography variant="h4">Good Morning,</Typography>
-                                                <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
-                                                    Vaibhav Tyagi
+                                                <Typography component="span" variant="h5" sx={{ fontWeight: 400 }}>
+                                                 {AuthState.state.email}
                                                 </Typography>
                                             </Stack>
                                             <Typography variant="subtitle2">Project Admin</Typography>

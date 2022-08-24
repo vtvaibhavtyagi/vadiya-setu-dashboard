@@ -95,21 +95,24 @@ const FirebaseLogin = ({ ...others }) => {
             session_data = {
                 id : response.did,
                 auth_token : response.accessToken,
-                role : 'doc'
+                role : 'doc',
+                email: values.email
             }
-            console.log("Doc",response);
+            console.log("Doc",response, session_data);
         }else{
             let response = await health.post("/patient/login", data=data )
             response = await response.data   
             session_data = {
                 id : response.pid,
                 auth_token : response.accessToken,
-                role : 'pat'
+                role : 'pat',
+                email: values.email
             } 
-            console.log("Pat",response);        
-        }        
-            AuthState.update(session_data);
-            console.log(AuthState.state.id);
+            console.log("Pat",response , session_data);        
+        } 
+            localStorage.setItem("auth_data", JSON.stringify(session_data));       
+            AuthState.update(localStorage.getItem("auth_data"));
+            console.log(localStorage.getItem('auth_data'));
         history("/");
     }
 
@@ -117,7 +120,7 @@ const FirebaseLogin = ({ ...others }) => {
         <>
         
             <Grid container direction="column" justifyContent="center" spacing={2}>
-            <h1>{AuthState.state.id}</h1>
+            <h1>{localStorage.getItem('auth_data').id}</h1>
                 <Grid item xs={12}>
                     <Box
                         sx={{
