@@ -35,7 +35,6 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import Google from 'assets/images/icons/social-google.svg';
 import health from "../../../../api/health"
-import axios from 'axios';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
@@ -49,6 +48,14 @@ const FirebaseLogin = ({ ...others }) => {
     const googleHandler = async () => {
         console.error('Login');
     };
+
+    const getPatientData = () => {
+        health.get("", {
+            headers:{
+                
+            }
+        })
+    }
 
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => {
