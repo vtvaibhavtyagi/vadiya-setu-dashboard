@@ -38,7 +38,6 @@ import User1 from 'assets/images/users/user-round.svg';
 
 // assets
 import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
-
 import AuthContext from 'AuthContext';
 import { useContext } from 'react';
 

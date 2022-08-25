@@ -54,24 +54,26 @@ const FirebaseRegister = ({ ...others }) => {
   const [level, setLevel] = useState();
 
   const SingUpData = async (data) => {
-    let response = await health.post("/doctor/register", data);
-    response = await response.data;
-    console.log(response);
+    console.log('Data',data)
+    let response = await health.post("/doctor/register", data)
+    response = await response.data
+    console.log(response)
     return response;
   };
 
   const SingUpSubmit = (values) => {
     // e.preventDefault();
-    var data = {
-      address: values.address,
-      aadhar: values.aadhar,
-      specilization: values.specilization,
-      email: values.email,
-      hospitalDetails: values.hospital,
-      name: values.fname + " " + values.lname,
-      password: values.password,
-      phone: values.mobno,
-      pincode: values.pincode,
+    console.log(values)
+    var data ={     
+      "address": values.address,
+      "aadhar": values.aadhar,
+      "specilization": values.specilization,      
+      "email": values.email,
+      "hospitalDetails": values.hospital,
+      "name":  values.fname + ' ' + values.lname,
+      "password": values.password ,
+      "phone": values.mobno,
+      "pincode": values.pincode,
       // "state": values.istate
     };
 
@@ -571,6 +573,7 @@ const FirebaseRegister = ({ ...others }) => {
                   type="submit"
                   variant="contained"
                   color="secondary"
+                  onClick={() => SingUpSubmit(values)}
                 >
                   Sign up
                 </Button>

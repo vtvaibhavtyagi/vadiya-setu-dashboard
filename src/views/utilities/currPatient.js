@@ -1,4 +1,9 @@
 import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import Modal from '@mui/material/Modal';
+import Zoom from '@mui/material/Zoom';
+
+import CardContent from '@mui/material/CardContent';
 
 // material-ui
 import { Box, Card, Grid, Typography } from '@mui/material';
@@ -8,7 +13,12 @@ import SubCard from 'ui-component/cards/SubCard';
 import MainCard from 'ui-component/cards/MainCard';
 import SecondaryAction from 'ui-component/cards/CardSecondaryAction';
 import { gridSpacing } from 'store/constant';
-
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+// import VaidyaSetu from './VaidyaSetu';
+import AuthContext from "AuthContext";
+import health from "../../../src/api/health";
+import { useContext } from 'react';
 // ===============================|| COLOR BOX ||=============================== //
 
 const ColorBox = ({ bgcolor, title, data, dark }) => (
@@ -56,18 +66,88 @@ ColorBox.propTypes = {
 
 // ===============================|| UI COLOR ||=============================== //
 
-const UIColor = () => (
-    <MainCard title="Current patient">
-        <Grid container spacing={gridSpacing}>
-            <Grid item xs={12}>
-                <SubCard title="Secondary Color">
-                    <Grid container spacing={gridSpacing}>
-                        
-                    </Grid>
-                </SubCard>
+function UIColor() {
+    const [open, setOpen] = React.useState(false);
+
+    const [checked, setChecked] = React.useState(false);
+    const AuthState = useContext(AuthContext);
+    const handleOpen = () => {
+        setOpen(true);
+        setChecked((prev) => !prev);
+    };
+
+    const SearchPatient = (AuthState, id) => {
+        var data = {"pid":id}
+        let response = health.post("/doctor/search", (data = data), {
+            headers: {
+              did: AuthState.state.pid,
+              Authorization: "Bearer " + AuthState.state.auth_token,
+            },
+          });
+          response = response.data;
+        
+          return response;
+    };
+
+
+    const handleClose = () => {
+        setOpen(false);
+        setChecked((prev) => !prev);
+    }
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '40%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        boxShadow: 24,
+        p: 4,
+    };
+
+
+
+
+
+    return (
+        <MainCard title="Create Request">
+            <Grid container spacing={gridSpacing}>
+                <Grid item xs={12}>
+                    <SubCard title="Patient ID">
+                        <Grid container spacing={2}>
+                            <Grid item xs={6}>
+                                <TextField id="outlined-basic" label="Patient_ID" variant="outlined" fullWidth="true" />
+                            </Grid>
+                            <Grid item xs={2}>
+
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Button variant="outlined" onClick={SearchPatient} size="large" sx={{ mt: 0.5 }}>Get Details</Button>
+                            </Grid>
+                        </Grid>
+
+                    </SubCard>
+                </Grid>
             </Grid>
-        </Grid>
-    </MainCard>
-);
+
+            {/* <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Zoom in={checked} style={{ transitionDelay: checked ? '100ms' : '0ms' }}>
+                    <Card sx={style}>
+                        <CardContent>
+                            <Typography>Helo</Typography>
+                        </CardContent>
+                    </Card>
+                </Zoom>
+            </Modal> */}
+
+
+        </MainCard>
+    )
+}
 
 export default UIColor;
