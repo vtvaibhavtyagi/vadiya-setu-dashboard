@@ -1,5 +1,19 @@
 import React, { Component } from 'react'
 import QrReader from 'react-qr-scanner'
+import {
+    Grid,
+    Link,
+    Avatar,
+    CardActions,
+    Typography,
+    Box,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemText,
+  } from "@mui/material";
+  import SubCard from "ui-component/cards/SubCard";
+import MainCard from "ui-component/cards/MainCard";
 
 export default class Test extends Component {
   constructor(props){
@@ -27,15 +41,16 @@ export default class Test extends Component {
     }
 
     return(
-      <div>
-        <QrReader
+      <MainCard>
+          <QrReader
           delay={this.state.delay}
           style={previewStyle}
           onError={this.handleError}
           onScan={this.handleScan}
           />
         <p>{this.state.result}</p>
-      </div>
+      </MainCard>
+        
     )
   }
 }
