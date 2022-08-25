@@ -67,6 +67,7 @@ const PenApprovals = () => {
 
   const AuthState = useContext(AuthContext);
   var isEmpty = false;
+  var history = useNavigate();
   const [patientList, setPatientList] = useState([]);
   useEffect(() => {
     async function someFunc() {
@@ -82,7 +83,15 @@ const PenApprovals = () => {
       console.log(respons, AuthState.state.id);
     }
 
-    someFunc();
+    if (AuthState.state.id) {
+      if (AuthState.state.role !== "pat") {
+        history("/utils/patient-history");
+      } else {
+        someFunc();
+      }
+    } else {
+      history("/login");
+    }
   }, []);
 
   const dateFormatter = (date) => {

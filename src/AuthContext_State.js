@@ -2,15 +2,16 @@ import React,{useState} from "react";
 import AuthContext from './AuthContext';
 
 const AuthContext_State=(props)=>{
-    const s1={
+    var s1={ }
+    localStorage.getItem('auth_data') ? s1 = JSON.parse(localStorage.getItem('auth_data')) : s1 = {
         "id":"",
         "auth_token":"",
         "role":"",
         "email":""
-    }
+    } ;
     const [state,setState]=useState(s1);
     const update=(session_data)=>{
-        setState(session_data)
+        setState(JSON.parse(session_data))
     }
 
     return(

@@ -13,14 +13,18 @@ import NotificationSection from './NotificationSection';
 // assets
 import { IconMenu2 } from '@tabler/icons';
 
+import { useContext } from 'react';
+import AuthContext from 'AuthContext';
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
 const Header = ({ handleLeftDrawerToggle }) => {
     const theme = useTheme();
+    const AuthState = useContext(AuthContext);
 
     return (
         <>
             {/* logo & toggler button */}
+            
             <Box
                 sx={{
                     width: 228,
@@ -31,7 +35,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
                 }}
             >
                 <Box component="span" sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
-                    
+                   <h3> VadiyaSetu </h3>  
                 </Box>
                 <ButtonBase sx={{ borderRadius: '12px', overflow: 'hidden' }}>
                     <Avatar

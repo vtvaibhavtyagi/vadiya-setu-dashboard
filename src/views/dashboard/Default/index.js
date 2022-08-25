@@ -11,13 +11,27 @@ import TotalIncomeDarkCard from './TotalIncomeDarkCard';
 import TotalIncomeLightCard from './TotalIncomeLightCard';
 import TotalGrowthBarChart from './TotalGrowthBarChart';
 import { gridSpacing } from 'store/constant';
-
+import AuthContext from 'AuthContext';
+import { useContext } from 'react';
+import { useNavigate  } from "react-router-dom";
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
 const Dashboard = () => {
+
+    const AuthState = useContext(AuthContext);
+    var history = useNavigate();  
+    
     const [isLoading, setLoading] = useState(true);
     useEffect(() => {
         setLoading(false);
+        if( AuthState.state.id ){
+            if( AuthState.state.role !== 'pat' && AuthState.state.role !== 'doc'  ){
+              history("/utils/patient-history");
+            }
+          }else{
+            history("/login");
+          }
+  
     }, []);
 
     return (

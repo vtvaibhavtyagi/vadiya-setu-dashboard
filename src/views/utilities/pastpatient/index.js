@@ -23,6 +23,7 @@ import { useNavigate  } from "react-router-dom";
 import health from "../../../../src/api/health"
 
 
+
 // ===============================|| PatientDetail ||=============================== //
 
 const getPendingRequestsData = async (AuthState) => {
@@ -54,7 +55,7 @@ const PatientDetail = ({ isLoading }) => {
     const theme = useTheme();
 
     const AuthState = useContext(AuthContext);
-
+    var history = useNavigate();
   const [patientList, setPatientList] = useState([])
     useEffect(() => {
         async function someFunc(){
@@ -66,8 +67,17 @@ const PatientDetail = ({ isLoading }) => {
             }          
             console.log(respons);
         }
-         
-        someFunc();
+        
+        if( AuthState.state.id ){
+            if( AuthState.state.role !== 'doc'  ){
+              history("/utils/vadiyasetu-card");
+            }else{
+                someFunc();
+            }
+          }else{
+            history("/login");
+          }
+        
     },[]);
 
     const [anchorEl, setAnchorEl] = useState(null);
