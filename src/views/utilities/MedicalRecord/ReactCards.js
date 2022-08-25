@@ -13,10 +13,11 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Zoom from "@mui/material/Zoom";
 import SubCard from "ui-component/cards/SubCard";
-import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-
+import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
+import AspectRatioIcon from '@mui/icons-material/AspectRatio';
+import MainCard from "ui-component/cards/MainCard";
 var dis = Datajson.disease;
 var st_color_class = "card-title";
 
@@ -47,12 +48,22 @@ export default class ReactCards extends React.Component {
     this.setState({ RC2_swip: true });
     this.Tinder.swipe();
   }
+  onTinderSwipeLeft() {
+    //this.setState({ swip: true });
+    if (this.state.dis_tar > 0) {
+      this.setState({ dis_tar: this.state.dis_tar - 1 });
+    } else {
+      this.setState({ dis_tar: dis.length - 1 });
+    }
+    this.setState({ RC2_swip: true });
+    this.Tinder.swipe();
+  }
   onzoom(card_name) {
     console.log(card_name);
     this.setState({ zooom: !this.state.zooom });
     this.setState({ RC2_swip: false });
     console.log(this.state.zooom);
-    if (card_name == "disease") {
+    if (card_name === "disease") {
       dis[this.state.dis_tar].status == "open"
         ? (st_color_class = "text-success")
         : (st_color_class = "text-danger");
@@ -78,22 +89,31 @@ export default class ReactCards extends React.Component {
 
     //const colors = ["red", "blue", "green"];
     var card = (
-      <div
-        className="card text-dark shadow-lg bg-white mb-3"
-        style={{
-          height: "600px",
-          width: "1500px",
-          marginTop: "250px",
-          marginLeft: "150px",
-        }}
-      >
-        <div className="card-header">
-          <b>Disease</b>
-        </div>
-        <div className="card-body">
-          <h2 className="card-title">Nothing to show</h2>
-        </div>
-      </div>
+      // <div
+      //   className="card text-dark shadow-lg bg-white mb-3"
+      //   style={{
+      //     height: "600px",
+      //     width: "1500px",
+      //     marginTop: "250px",
+      //     marginLeft: "150px",
+      //   }}
+      // >
+      //   <div className="card-header">
+      //     <b>Disease</b>
+      //   </div>
+      //   <div className="card-body">
+      //     <h2 className="card-title">Nothing to show</h2>
+      //   </div>
+      // </div>
+
+      <MainCard title="Disease" boxShadow="true">
+        <Grid>
+          <Typography variant="h2" style={"inherit"}>
+            Nothing to show
+          </Typography>
+        </Grid>
+
+      </MainCard>
     );
 
     if (this.state.zoom_card_name == "disease") {
@@ -132,6 +152,10 @@ export default class ReactCards extends React.Component {
             </h6>
           </div>
         </div>
+
+        // <MainCard title="Disease" boxShadow="true">
+
+        // </MainCard>
       );
     } else if (this.state.zoom_card_name == "diagno") {
       card = (
@@ -224,9 +248,8 @@ export default class ReactCards extends React.Component {
               direction={this.state.directionTinder}
               duration={400}
               ref={(node) => (this.Tinder = node)}
-              className="tinder"
             >
-              <SubCard title="Disease">
+              <SubCard title="Disease" sx={{ height: "30em" }}>
                 <Grid container direction="column" spacing={1}>
                   <Grid item>
                     <Typography variant="h3" color="inherit">
@@ -244,7 +267,13 @@ export default class ReactCards extends React.Component {
           </Grid>
 
           <Grid item xs={12} sm={4}>
-            <TinderLikeCard
+            <ReactCards2
+              swipee="swipeDown"
+              dis2={dis[this.state.dis_tar]}
+              rc2_swipp={this.state.RC2_swip}
+              targett="diagno"
+            />
+            {/* <TinderLikeCard
               images={arr}
               width="350"
               height="250"
@@ -269,11 +298,17 @@ export default class ReactCards extends React.Component {
                   </Grid>
                 </Grid>
               </SubCard>
-            </TinderLikeCard>
+            </TinderLikeCard> */}
           </Grid>
 
           <Grid item xs={12} sm={4}>
-            <TinderLikeCard
+            <ReactCards2
+              swipee="swipeCornerDownRight"
+              dis2={dis[this.state.dis_tar]}
+              rc2_swipp={this.state.RC2_swip}
+              targett="treatment"
+            />
+            {/* <TinderLikeCard
               images={arr}
               width="350"
               height="250"
@@ -282,7 +317,7 @@ export default class ReactCards extends React.Component {
               ref={(node) => (this.Tinder = node)}
               className="tinder"
             >
-              <SubCard title="Diagnostics">
+              <SubCard title="Treatment">
                 <Grid container direction="column" spacing={1}>
                   <Grid item>
                     {dis[this.state.dis_tar].treatment
@@ -300,116 +335,62 @@ export default class ReactCards extends React.Component {
                   </Grid>
                 </Grid>
               </SubCard>
-            </TinderLikeCard>
+            </TinderLikeCard> */}
           </Grid>
-          
 
-          <Grid item xs={4}>
-            <button
-              className="btn btn-warning"
-              style={{ marginTop: "230px", width: "68%" }}
-              onClick={this.onzoom.bind(this, "disease")}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                fill="currentColor"
-                class="bi bi-chevron-double-down"
-                viewBox="0 0 16 16"
+          <Grid container spacing={gridSpacing} sx={{ marginTop: "240px" }}>
+            <Grid item xs={2}></Grid>
+
+            <Grid item xs={3}>
+              <Button
+                fontSize="large"
+                onClick={this.onzoom.bind(this, "disease")}
               >
-                <path
-                  fill-rule="evenodd"
-                  d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                />
-                <path
-                  fill-rule="evenodd"
-                  d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                />
-              </svg>
-            </button>
+                <AspectRatioIcon />
+              </Button>
+            </Grid>
+
+            <Grid item xs={3}>
+                <Button
+                  fontSize="large"
+                  onClick={this.onzoom.bind(this, "diagno")}
+                >
+                  <AspectRatioIcon />
+                </Button>
+             
+            </Grid>
+            <Grid item xs={4}>
+              <Button
+                // fontSize = "large"
+                onClick={this.onzoom.bind(this, "treatment")}
+              >
+                <AspectRatioIcon />
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={4}>
-            <button
-              className="btn btn-warning"
-              style={{ marginTop: "230px", width: "68%" }}
-              onClick={this.onzoom.bind(this, "diagno")}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                fill="currentColor"
-                class="bi bi-chevron-double-down"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                />
-                <path
-                  fill-rule="evenodd"
-                  d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                />
-              </svg>
-            </button>
-          </Grid>
-          <Grid item xs={4}>
-            <button
-              className="btn btn-warning"
-              style={{ marginTop: "230px", width: "68%" }}
-              onClick={this.onzoom.bind(this, "treatment")}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                fill="currentColor"
-                class="bi bi-chevron-double-down"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                />
-                <path
-                  fill-rule="evenodd"
-                  d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                />
-              </svg>
-            </button>
-          </Grid> 
 
-      
-
-          <CardActions sx={{ p: 1.25, pt: 0}}>
-            <Grid item>
+          <Grid item xs={12} sm={5}></Grid>
+          <Grid item xs={12} sm={2}>
+            <Button>
               <ArrowBackIosIcon
-                onClick={this.onTinderSwipe.bind(this)}
+                onClick={this.onTinderSwipeLeft.bind(this)}
                 sx={{
-                  color: "white",
                   ml: 2,
                 }}
                 fontSize="large"
               />
-            </Grid>
-            <Grid item>
+            </Button>
+
+            <Button>
               <ArrowForwardIosIcon
                 onClick={this.onTinderSwipe.bind(this)}
-                sx={{
-                  color: "white",
-                  ml: 2,
-                }}
+                sx={{}}
                 fontSize="large"
               />
-            </Grid>
-          </CardActions>
-
-
-          
-        
+            </Button>
+          </Grid>
+          <Grid item xs={12} sm={5}></Grid>
         </Grid>
-
 
         <Modal
           open={this.state.zooom}

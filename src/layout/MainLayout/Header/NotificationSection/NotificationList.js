@@ -99,6 +99,7 @@ const NotificationList = () => {
                         </Grid>
                     </ListItemSecondaryAction>
                 </ListItem>
+
                 <Grid container direction="column" className="list-container">
                     <Grid item xs={12} sx={{ pb: 2 }}>
                         <Typography variant="subtitle2">It is a long established fact that a reader will be distracted</Typography>
@@ -116,6 +117,7 @@ const NotificationList = () => {
                 </Grid>
             </ListItemWrapper>
             <Divider />
+            
             <ListItemWrapper>
                 <ListItem alignItems="center">
                     <ListItemAvatar>

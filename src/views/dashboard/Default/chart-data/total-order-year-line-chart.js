@@ -43,7 +43,7 @@ const chartData = {
     },
     series: [
         {
-            name: 'series1',
+            name: 'Monkey Pox patient',
             data: [35, 44, 9, 54, 45, 66, 41, 69]
         }
     ]

@@ -9,6 +9,7 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
+  Divider,
 } from "@mui/material";
 import { useTheme, styled } from "@mui/material/styles";
 import QRCode from "react-qr-code";
@@ -20,7 +21,6 @@ import SecondaryAction from "ui-component/cards/CardSecondaryAction";
 import { gridSpacing } from "store/constant";
 import TableChartOutlinedIcon from "@mui/icons-material/TableChartOutlined";
 // ==============================|| TYPOGRAPHY ||============================== //
-import Particle from "themes/particle";
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: theme.palette.primary.dark,
@@ -55,19 +55,90 @@ const VadiyaSetu = () => {
   return (
     <>
       {
-        
         <MainCard>
-        
-          <CardActions sx={{ p: 1.25, pt: 0, justifyContent: "center" }}>
-            <Avatar
-              alt="Remy Sharp"
-              src="assets/images/users/user-round.svg"
-              sx={{ width: 200, height: 200 }}
-              disableElevation
-            />
-            {/* <Typography variant="h1">aaaaa</Typography> */}
-          </CardActions>
-          <Grid container spacing={gridSpacing}>
+          <Grid container spacing={gridSpacing} alignItems="center">
+            <Grid item xs={12} sm={2}>
+              <Avatar
+                alt="Remy Sharp"
+                src="assets/images/users/user-round.svg"
+                sx={{ width: 150, height: 150 }}
+                disableElevation
+              />
+            </Grid>
+            <Grid xs={12} sm={2}>
+              <Typography variant="h2" color="inherit">
+                {"Vaibhav Tyagi"}
+              </Typography>
+              <Typography variant="subtitle1" color="inherit">
+                Mob: {"8859735728"}
+              </Typography>
+            </Grid>
+
+            <Grid xs={12} sm={2}>
+              <Box>
+                <Box sx={{ color: "text.secondary" }}>Age&Gender</Box>
+
+                <Box
+                  sx={{
+                    display: "inline",
+                    fontWeight: "bold",
+
+                    fontSize: 14,
+                  }}
+                >
+                22 Gender:-Male
+                </Box>
+              </Box>
+            </Grid>
+            <Grid xs={12} sm={2}>
+              <Box>
+                <Box sx={{ color: "text.secondary" }}>Height</Box>
+
+                <Box
+                  sx={{
+                    display: "inline",
+                    fontWeight: "bold",
+
+                    fontSize: 14,
+                  }}
+                >
+                184cm
+                </Box>
+              </Box>
+            </Grid>
+            <Grid xs={12} sm={2}>
+              <Box>
+                <Box sx={{ color: "text.secondary" }}>Allergies</Box>
+
+                <Box
+                  sx={{
+                    display: "inline",
+                    fontWeight: "bold",
+                    mx: 0.5,
+                    fontSize: 14,
+                  }}
+                >
+                  Dust
+                </Box>
+              </Box>
+            </Grid>
+            <Grid xs={12} sm={2}>
+              <Box>
+                <Box sx={{ color: "text.secondary" }}>Active Issues</Box>
+
+                <Box
+                  sx={{
+                    display: "inline",
+                    fontWeight: "bold",
+                    mx: 0.5,
+                    fontSize: 14,
+                  }}
+                >
+                  {"12"}
+                </Box>
+              </Box>
+            </Grid>
+
             <Grid item xs={12} sm={6}>
               <SubCard>
                 <Grid

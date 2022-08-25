@@ -25,73 +25,65 @@ import { gridSpacing } from "store/constant";
 import { add, format, differenceInCalendarDays, isFuture } from "date-fns";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
 
-import { useContext, useEffect } from 'react';
-import AuthContext from 'AuthContext';
-import { useNavigate  } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import AuthContext from "AuthContext";
+import { useNavigate } from "react-router-dom";
 
-import health from "../../../src/api/health"
+import health from "../../../src/api/health";
 // ===============================|| PenApprovals ||=============================== //
 
 const getRequestsData = async (AuthState) => {
-  console.log( AuthState.state.id);
+  console.log(AuthState.state.id);
   let response = await health.get("/patient/showreq", {
-      headers :{
-          "pid": AuthState.state.id ,
-          "Authorization" :"Bearer "+AuthState.state.auth_token       
-      }
-  })
-  response = await response.data
+    headers: {
+      pid: AuthState.state.id,
+      Authorization: "Bearer " + AuthState.state.auth_token,
+    },
+  });
+  response = await response.data;
 
   return response;
-}
+};
 
-
-function AcceptReq( AuthState ,ele){
-
+function AcceptReq(AuthState, ele) {
   var data = {
-    "aid": ele.aid,
-    "did": ele.did
-  }
- console.log("Button Dabaya")
-  let response =  health.post("/patient/grant", data = data,
-     { headers : {
-          "pid": ele.pid ,
-          "Authorization" :"Bearer "+AuthState.state.auth_token       
-      }}
-  )
-  response =  response.data
+    aid: ele.aid,
+    did: ele.did,
+  };
+  console.log("Button Dabaya");
+  let response = health.post("/patient/grant", (data = data), {
+    headers: {
+      pid: ele.pid,
+      Authorization: "Bearer " + AuthState.state.auth_token,
+    },
+  });
+  response = response.data;
 
   return response;
 }
-
 
 const PenApprovals = () => {
   const theme = useTheme();
 
   const AuthState = useContext(AuthContext);
-  var isEmpty = false ;
-  const [patientList, setPatientList] = useState([])
-    useEffect(() => {
-        async function someFunc(){
-            let respons = await getRequestsData(AuthState);
-            if (respons.status === "success"){
-              if (respons.payload.length > 0){
-                setPatientList( respons.payload );
-              }else{
-                  isEmpty = true
-                  console.log("erwt")
-              }
-
-               
-            }          
-            console.log(respons , AuthState.state.id);
+  var isEmpty = false;
+  const [patientList, setPatientList] = useState([]);
+  useEffect(() => {
+    async function someFunc() {
+      let respons = await getRequestsData(AuthState);
+      if (respons.status === "success") {
+        if (respons.payload.length > 0) {
+          setPatientList(respons.payload);
+        } else {
+          isEmpty = true;
+          console.log("erwt");
         }
-         
-        someFunc();
-    },[]);
+      }
+      console.log(respons, AuthState.state.id);
+    }
 
-
-   
+    someFunc();
+  }, []);
 
   const dateFormatter = (date) => {
     return format(new Date(date), "dd/MMM");
@@ -132,108 +124,108 @@ const PenApprovals = () => {
             </Grid>
 
             {/* doctor details */}
-            { 
-            patientList.map( (ele) =>  
-            <Grid item xs={12}>
-              <Grid
-                container
-                alignItems="center"
-                justifyContent="space-between"
-              >
-                <Grid item>
-                  <Typography variant="subtitle1" color="inherit">
-                    {ele.doctorName}
-                  </Typography>
-                </Grid>
-
-                <Grid item>
-                  <Grid
-                    container
-                    alignItems="center"
-                    justifyContent="space-between"
-                  >
-                    <Grid item>
-                      <Typography variant="subtitle1" color="inherit">
-                      {ele.did}
-                      </Typography>
-                    </Grid>
+            {patientList.map((ele) => (
+              <Grid item xs={12}>
+                <Grid
+                  container
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
+                  <Grid item>
+                    <Typography variant="subtitle1" color="inherit">
+                      {ele.doctorName}
+                    </Typography>
                   </Grid>
-                </Grid>
 
-                <Grid item>
-                  <Grid
-                    container
-                    alignItems="center"
-                    justifyContent="space-between"
-                  >
-                    <Grid item>
-                      <Typography variant="subtitle1" color="inherit">
-                      {ele.reqTime}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Grid>
-
-                <Grid item>
-                  <Grid
-                    container
-                    alignItems="center"
-                    justifyContent="space-between"
-                  >
-                    <Grid item container>
+                  <Grid item>
+                    <Grid
+                      container
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
                       <Grid item>
-                        <CardActions
-                          sx={{ p: 1.25, pt: 0, justifyContent: "center" }}
-                        >
-                          <Button
-                            size="small"
-                            disableElevation
-                            sx={{  backgroundColor: theme.palette.success.light,
-                                color: theme.palette.success.dark }}
-                            onClick = {() =>AcceptReq(AuthState , ele)}
-                          >
-                            Accept
-                          </Button>
-                        </CardActions>
+                        <Typography variant="subtitle1" color="inherit">
+                          {ele.did}
+                        </Typography>
                       </Grid>
+                    </Grid>
+                  </Grid>
 
+                  <Grid item>
+                    <Grid
+                      container
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
                       <Grid item>
+                        <Typography variant="subtitle1" color="inherit">
+                          {ele.reqTime}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item>
+                    <Grid
+                      container
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <Grid item container>
                         <Grid item>
                           <CardActions
-                            sx={{
-                              p: 1.25,
-                              pt: 0,
-                              justifyContent: "center"
-
-                            }}
+                            sx={{ p: 1.25, pt: 0, justifyContent: "center" }}
                           >
-                            <Button size="small" disableElevation sx={{
-                              backgroundColor: theme.palette.error.light,
-                              color: theme.palette.error.dark,
-                            }}>
-                              Reject
+                            <Button
+                              size="small"
+                              disableElevation
+                              sx={{
+                                backgroundColor: theme.palette.success.light,
+                                color: theme.palette.success.dark,
+                              }}
+                              onClick={() => AcceptReq(AuthState, ele)}
+                            >
+                              Accept
                             </Button>
                           </CardActions>
                         </Grid>
+
+                        <Grid item>
+                          <Grid item>
+                            <CardActions
+                              sx={{
+                                p: 1.25,
+                                pt: 0,
+                                justifyContent: "center",
+                              }}
+                            >
+                              <Button
+                                size="small"
+                                disableElevation
+                                sx={{
+                                  backgroundColor: theme.palette.error.light,
+                                  color: theme.palette.error.dark,
+                                }}
+                              >
+                                Reject
+                              </Button>
+                            </CardActions>
+                          </Grid>
+                        </Grid>
                       </Grid>
                     </Grid>
-
                   </Grid>
                 </Grid>
+
+                <Divider sx={{ my: 1.5 }} />
               </Grid>
-
-              <Divider sx={{ my: 1.5 }} />
-            </Grid>
-
-              )  }
+            ))}
           </Grid>
-
         </CardContent>
 
-        
         <CardActions sx={{ p: 1.25, pt: 0, justifyContent: "center" }}>
           <Button size="small" disableElevation>
-            { isEmpty ?  "View All" :"No pending requests" }
+            {isEmpty ? "View All" : "No pending requests"}
             <ChevronRightOutlinedIcon />
           </Button>
         </CardActions>

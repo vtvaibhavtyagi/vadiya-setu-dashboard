@@ -10,13 +10,11 @@ import MainCard from 'ui-component/cards/MainCard';
 import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
 
 // assets
-import EarningIcon from 'assets/images/icons/earning.svg';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import GetAppTwoToneIcon from '@mui/icons-material/GetAppOutlined';
-import FileCopyTwoToneIcon from '@mui/icons-material/FileCopyOutlined';
-import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined';
-import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveOutlined';
+import CoronavirusIcon from '@mui/icons-material/Coronavirus';
+import MonitorHeartIcon from '@mui/icons-material/MonitorHeart';
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.dark,
@@ -89,7 +87,7 @@ const EarningCard = ({ isLoading }) => {
                                                 mt: 1
                                             }}
                                         >
-                                            <img src={EarningIcon} alt="Notification" />
+                                            <CoronavirusIcon />
                                         </Avatar>
                                     </Grid>
                                     <Grid item>
@@ -125,16 +123,16 @@ const EarningCard = ({ isLoading }) => {
                                             }}
                                         >
                                             <MenuItem onClick={handleClose}>
-                                                <GetAppTwoToneIcon sx={{ mr: 1.75 }} /> Import Card
+                                                 Dengue 
                                             </MenuItem>
                                             <MenuItem onClick={handleClose}>
-                                                <FileCopyTwoToneIcon sx={{ mr: 1.75 }} /> Copy Data
+                                                 Malaria
                                             </MenuItem>
                                             <MenuItem onClick={handleClose}>
-                                                <PictureAsPdfTwoToneIcon sx={{ mr: 1.75 }} /> Export
+                                               Tuberculosis
                                             </MenuItem>
                                             <MenuItem onClick={handleClose}>
-                                                <ArchiveTwoToneIcon sx={{ mr: 1.75 }} /> Archive File
+                                                 Diarrhoea
                                             </MenuItem>
                                         </Menu>
                                     </Grid>
@@ -144,7 +142,7 @@ const EarningCard = ({ isLoading }) => {
                                 <Grid container alignItems="center">
                                     <Grid item>
                                         <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            500
+                                            555004567
                                         </Typography>
                                     </Grid>
                                     <Grid item>
@@ -152,11 +150,11 @@ const EarningCard = ({ isLoading }) => {
                                             sx={{
                                                 cursor: 'pointer',
                                                 ...theme.typography.smallAvatar,
-                                                backgroundColor: theme.palette.secondary[200],
+                                                backgroundColor: theme.palette.success.dark,
                                                 color: theme.palette.secondary.dark
                                             }}
                                         >
-                                            <ArrowUpwardIcon fontSize="inherit" sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }} />
+                                            <ArrowDownwardIcon fontSize="inherit" sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }} />
                                         </Avatar>
                                     </Grid>
                                 </Grid>
@@ -169,7 +167,7 @@ const EarningCard = ({ isLoading }) => {
                                         color: theme.palette.secondary[200]
                                     }}
                                 >
-                                    Total User
+                                    Coronavirus patient
                                 </Typography>
                             </Grid>
                         </Grid>

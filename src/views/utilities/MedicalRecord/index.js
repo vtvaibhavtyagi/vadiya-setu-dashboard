@@ -15,14 +15,12 @@ import ReportCard from "./ReportCard";
 // ===============================|| UI COLOR ||=============================== //
 
 const UIColor = () => (
-  <Grid container spacing={gridSpacing}>
-    <Grid>
-      <SearchRecord />
-    </Grid>
+  <Grid container>
+    {/* <MainCard sx={{ zIndex: -1 }}> */}
 
-    <Grid item xs={12}>
-      <ReactCards />
-    </Grid>
+    <ReactCards />
+
+    {/* </MainCard> */}
   </Grid>
 );
 
