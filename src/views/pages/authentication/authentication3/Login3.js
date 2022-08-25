@@ -2,7 +2,14 @@ import { Link } from "react-router-dom";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
-import { Divider, Grid, Stack, Typography, useMediaQuery } from "@mui/material";
+import {
+  Divider,
+  Grid,
+  Stack,
+  Typography,
+  useMediaQuery,
+  Box,
+} from "@mui/material";
 
 // project imports
 import AuthWrapper1 from "../AuthWrapper1";
@@ -10,6 +17,7 @@ import AuthCardWrapper from "../AuthCardWrapper";
 import AuthLogin from "../auth-forms/AuthLogin";
 import Logo from "ui-component/Logo";
 import AuthFooter from "ui-component/cards/AuthFooter";
+import "assets/images/icons/login.png";
 
 // assets
 
@@ -27,6 +35,25 @@ const Login = () => {
         justifyContent="flex-end"
         sx={{ minHeight: "100vh" }}
       >
+        {/* <Grid item xs={6}>
+          <Grid
+            container
+            justifyContent="centre"
+            alignItems="left"
+            xs={{minHeight: '100vh'}}
+          >
+            <Box
+            
+              component="img"
+              sx={{
+                maxHeight: { xs: 350, md: 350 },
+                maxWidth: { xs: 350, md: 350 },
+              }}
+              alt="Login"
+              src={require("assets/images/icons/login.png")}
+            />
+          </Grid>
+        </Grid> */}
         <Grid item xs={6}>
           <Grid
             container
@@ -107,7 +134,6 @@ const Login = () => {
             </Grid>
           </Grid>
         </Grid>
-
       </Grid>
     </AuthWrapper1>
   );

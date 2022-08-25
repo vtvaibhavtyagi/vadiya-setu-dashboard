@@ -30,6 +30,16 @@ import AuthContext from "AuthContext";
 import { useNavigate } from "react-router-dom";
 
 import health from "../../../src/api/health";
+
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { RowingTwoTone } from "@mui/icons-material";
+
 // ===============================|| PenApprovals ||=============================== //
 
 const getRequestsData = async (AuthState) => {
@@ -45,15 +55,15 @@ const getRequestsData = async (AuthState) => {
   return response;
 };
 
-function AcceptReq(AuthState, ele) {
+function AcceptReq(AuthState, row) {
   var data = {
-    aid: ele.aid,
-    did: ele.did,
+    aid: row.aid,
+    did: row.did,
   };
   console.log("Button Dabaya");
   let response = health.post("/patient/grant", (data = data), {
     headers: {
-      pid: ele.pid,
+      pid: row.pid,
       Authorization: "Bearer " + AuthState.state.auth_token,
     },
   });
@@ -96,385 +106,76 @@ const PenApprovals = () => {
 
   
 
-  return (
-    <>
-      <MainCard content={false}>
-        <CardContent>
-          <Grid container spacing={gridSpacing}>
-            <Grid item xs={12}>
-              <Grid
-                container
-                alignContent="center"
-                justifyContent="space-between"
+  
+    return (
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="right">Doctor</TableCell>
+              <TableCell align="right">Specilization</TableCell>
+              <TableCell align="right">Hospital</TableCell>
+              <TableCell align="right">Action</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {patientList.map((row) => (
+              <TableRow
+                key={row.name}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <Grid item>
-                  <Typography variant="h3" color="inherit">
-                    Doctor
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography variant="h3" color="inherit">
-                    Specilization
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography variant="h3" color="inherit">
-                    Hospital
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography variant="h3" color="inherit">
-                    Action
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-
-            {/* doctor details */}
-            {patientList.map((ele) => (
-              <Grid item xs={12}>
-                <Grid
-                  container
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Grid item>
-                    <Typography variant="subtitle1" color="inherit">
-                      {ele.doctorName}
-                    </Typography>
-                  </Grid>
-
-                  <Grid item>
-                    <Grid
-                      container
-                      alignItems="center"
-                      justifyContent="space-between"
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell align="right">{row.calories}</TableCell>
+                <TableCell align="right">{row.fat}</TableCell>
+                <TableCell align="right">
+                  <CardActions sx={{ p: 1.25, pt: 0, justifyContent: "center" }}>
+                    <Button
+                      size="small"
+                      disableElevation
+                      sx={{
+                        backgroundColor: theme.palette.success.light,
+                        color: theme.palette.success.dark,
+                      }}
+                      onClick={() => AcceptReq(AuthState, row)}
                     >
-                      <Grid item>
-                        <Typography variant="subtitle1" color="inherit">
-                          {ele.did}
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-
-                  <Grid item>
-                    <Grid
-                      container
-                      alignItems="center"
-                      justifyContent="space-between"
+                      Accept
+                    </Button>
+                  </CardActions>
+                  <CardActions
+                    sx={{
+                      p: 1.25,
+                      pt: 0,
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Button
+                      size="small"
+                      disableElevation
+                      sx={{
+                        backgroundColor: theme.palette.error.light,
+                        color: theme.palette.error.dark,
+                      }}
                     >
-                      <Grid item>
-                        <Typography variant="subtitle1" color="inherit">
-                          {ele.reqTime}
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-
-                  <Grid item>
-                    <Grid
-                      container
-                      alignItems="center"
-                      justifyContent="space-between"
-                    >
-                      <Grid item container>
-                        <Grid item>
-                          <CardActions
-                            sx={{ p: 1.25, pt: 0, justifyContent: "center" }}
-                          >
-                            <Button
-                              size="small"
-                              disableElevation
-                              sx={{
-                                backgroundColor: theme.palette.success.light,
-                                color: theme.palette.success.dark,
-                              }}
-                              onClick={() => AcceptReq(AuthState, ele)}
-                            >
-                              Accept
-                            </Button>
-                          </CardActions>
-                        </Grid>
-
-                        <Grid item>
-                          <Grid item>
-                            <CardActions
-                              sx={{
-                                p: 1.25,
-                                pt: 0,
-                                justifyContent: "center",
-                              }}
-                            >
-                              <Button
-                                size="small"
-                                disableElevation
-                                sx={{
-                                  backgroundColor: theme.palette.error.light,
-                                  color: theme.palette.error.dark,
-                                }}
-                              >
-                                Reject
-                              </Button>
-                            </CardActions>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-
-                <Divider sx={{ my: 1.5 }} />
-              </Grid>
+                      Reject
+                    </Button>
+                  </CardActions>
+                </TableCell>
+              </TableRow>
             ))}
-          </Grid>
-        </CardContent>
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
+  
 
-        <CardActions sx={{ p: 1.25, pt: 0, justifyContent: "center" }}>
-          <Button size="small" disableElevation>
-            {isEmpty ? "View All" : "No pending requests"}
-            <ChevronRightOutlinedIcon />
-          </Button>
-        </CardActions>
-      </MainCard>
-    </>
-  );
 };
 
-PenApprovals.propTypes = {
-  isLoading: PenApprovals.bool,
-};
+// PenApprovals.propTypes = {
+//   isLoading: PenApprovals.bool,
+// };
 
 export default PenApprovals;
 
-// import PropTypes from "prop-types";
-// import { useState } from "react";
-// // material-ui
-// import { useTheme } from "@mui/material/styles";
-// import {
-//   Box,
-//   Card,
-//   CardContent,
-//   Grid,
-//   Typography,
-//   Avatar,
-//   Button,
-//   CardActions,
-//   Divider,
-//   Menu,
-//   MenuItem,
-//   Table,
-//   TableBody,
-//   TableCell,
-//   TableContainer,
-//   TableHead,
-//   TableRow,
-//   Paper,
-//   TablePagination,
-//   Tooltip,
-//   IconButton,
-// } from "@mui/material";
-// import { makeStyles, withStyles } from "@material-ui/core/styles";
-// import MuiTableHead from "@material-ui/core/TableHead";
-// // project imports
-// import SubCard from "ui-component/cards/SubCard";
-// import MainCard from "ui-component/cards/MainCard";
-// import SkeletonPopularCard from "ui-component/cards/Skeleton/PopularCard";
-// import { gridSpacing } from "store/constant";
-// // assets
-// import FilterListIcon from "@mui/icons-material/FilterList";
-// import { add, format, differenceInCalendarDays, isFuture } from "date-fns";
-// import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
-// import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
-// import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
-// import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 
-// // ===============================|| ApprovalHistory ||=============================== //
-
-// const ApprovalHistory = ({ isLoading }) => {
-//   const theme = useTheme();
-
-//   const dateFormatter = (date) => {
-//     return format(new Date(date), "dd/MMM/YYYY");
-//   };
-
-//   const columns = [
-//     { id: "name", label: "Doctor", minWidth: 170 },
-//     { id: "hos", label: "Hospital", minWidth: 100 },
-//     {
-//       id: "disease",
-//       label: "Disease",
-//       minWidth: 170,
-//       align: "right",
-//       format: (value) => value.toLocaleString("en-US"),
-//     },
-
-//     {
-//       id: "action",
-//       label: "Action",
-//       minWidth: 170,
-//       align: "right",
-//       format: (value) => value.toFixed(2),
-//     },
-//   ];
-
-//   function createData(name, hos, disease, action) {
-//     // const density = dateFormatter(date)
-//     return { name, hos, disease, action };
-//   }
-
-//   const rows = [
-//     createData("Rahul", "nukkad", "Gyno", true),
-//     createData("Rahul", "nukkad", "Gyno", false),
-//   ];
-
-//   const [page, setPage] = useState(0);
-//   const [rowsPerPage, setRowsPerPage] = useState(10);
-
-//   const handleChangePage = (event, newPage) => {
-//     setPage(newPage);
-//   };
-
-//   const handleChangeRowsPerPage = (event) => {
-//     setRowsPerPage(+event.target.value);
-//     setPage(0);
-//   };
-//   const TableHead = withStyles((theme) => ({
-//     root: {
-//       backgroundColor: "#80cc28",
-//     },
-//   }))(MuiTableHead);
-
-//   return (
-//     <>
-//       {isLoading ? (
-//         <SkeletonPopularCard />
-//       ) : (
-//         <MainCard content={false}>
-//           <Paper sx={{ width: "100%", overflow: "hidden" }}>
-//             <TableContainer>
-//               <Table stickyHeader aria-label="sticky table">
-//                 <TableHead>
-//                   <TableRow>
-//                     {columns.map((column) => (
-//                       <TableCell
-//                         key={column.id}
-//                         align={column.align}
-//                         style={{ minWidth: column.minWidth }}
-//                       >
-//                         {column.label}
-//                       </TableCell>
-//                     ))}
-//                   </TableRow>
-//                 </TableHead>
-//                 <TableBody>
-//                   {rows
-//                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-//                     .map((row) => {
-//                       return (
-//                         <TableRow
-//                           hover
-//                           role="checkbox"
-//                           tabIndex={-1}
-//                           key={row.code}
-//                         >
-//                           {columns.map((column) => {
-//                             if (column.id === "action") {
-//                               <TableCell key={column.id} align={column.align}>
-//                                 <Button
-//                                   size="small"
-//                                   disableElevation
-//                                   sx={{
-//                                     backgroundColor:
-//                                       theme.palette.success.light,
-//                                     color: theme.palette.success.dark,
-//                                   }}
-//                                 >
-//                                   Accept
-//                                 </Button>
-//                                 ;
-//                               </TableCell>;
-//                             } else {
-//                               const value = row[column.id];
-//                               return (
-//                                 <TableCell key={column.id} align={column.align}>
-//                                   {value}
-//                                 </TableCell>
-//                               );
-//                             }
-//                           })}
-//                         </TableRow>
-//                       );
-//                     })}
-//                 </TableBody>
-//               </Table>
-//             </TableContainer>
-//             <TablePagination
-//               rowsPerPageOptions={[10, 25, 100]}
-//               component="div"
-//               count={rows.length}
-//               rowsPerPage={rowsPerPage}
-//               page={page}
-//               onPageChange={handleChangePage}
-//               onRowsPerPageChange={handleChangeRowsPerPage}
-//             />
-//           </Paper>
-//         </MainCard>
-//       )}
-//     </>
-//   );
-// };
-
-// ApprovalHistory.propTypes = {
-//   isLoading: PropTypes.bool,
-// };
-
-// export default ApprovalHistory;
-
-{
-  /* <Grid item>
-                  <Grid
-                    container
-                    alignItems="center"
-                    justifyContent="space-between"
-                  >
-                    <Grid item container>
-                      <Grid item>
-                        <CardActions
-                          sx={{ p: 1.25, pt: 0, justifyContent: "center" }}
-                        >
-                          <Button
-                            size="small"
-                            disableElevation
-                            sx={{  backgroundColor: theme.palette.success.light,
-                                color: theme.palette.success.dark }}
-                          >
-                            Accept
-                          </Button>
-                        </CardActions>
-                      </Grid>
-
-                      <Grid item>
-                        <Grid item>
-                          <CardActions
-                            sx={{
-                              p: 1.25,
-                              pt: 0,
-                              justifyContent: "center"
-
-                            }}
-                          >
-                            <Button size="small" disableElevation sx={{
-                              backgroundColor: theme.palette.error.light,
-                              color: theme.palette.error.dark,
-                            }}>
-                              Reject
-                            </Button>
-                          </CardActions>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-
-                  </Grid>
-                </Grid> */
-}

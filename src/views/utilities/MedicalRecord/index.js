@@ -34,11 +34,11 @@ const UIColor = () => {
 
   return (
     <>
-      <Grid container spacing={gridSpacing}>
+      
         <ReactCards />
 
         {/* </MainCard> */}
-      </Grid>
+  
     </>
   );
 };

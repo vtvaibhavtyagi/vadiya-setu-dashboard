@@ -144,8 +144,8 @@ const FirebaseLogin = ({ ...others }) => {
 
             <Formik
                 initialValues={{
-                    email: 'vtvaibhavtyagi@gmail.com',
-                    password: '5@Ve7ree',
+                    email: 'jagannath.patta@spit.ac.in',
+                    password: 'jaggu123',
                     role:'doc',
                     submit: null
                 }}

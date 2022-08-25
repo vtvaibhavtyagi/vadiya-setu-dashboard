@@ -20,10 +20,12 @@ import MainCard from "ui-component/cards/MainCard";
 import SecondaryAction from "ui-component/cards/CardSecondaryAction";
 import { gridSpacing } from "store/constant";
 import TableChartOutlinedIcon from "@mui/icons-material/TableChartOutlined";
-import { useEffect, useState } from 'react';
-import AuthContext from 'AuthContext';
-import { useContext } from 'react';
-import { useNavigate  } from "react-router-dom";
+import { useEffect, useState } from "react";
+import AuthContext from "AuthContext";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { margin } from "@mui/system";
+import MaleIcon from "@mui/icons-material/Male";
 // ==============================|| TYPOGRAPHY ||============================== //
 // import Particle from "themes/particle";
 
@@ -57,21 +59,19 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 const VadiyaSetu = () => {
   const theme = useTheme();
   const AuthState = useContext(AuthContext);
-    var history = useNavigate();  
+  var history = useNavigate();
 
   const [isLoading, setLoading] = useState(true);
-    useEffect(() => {
-        setLoading(false);
-        if( AuthState.state.id ){
-          if( AuthState.state.role !== 'pat'  ){
-            history("/utils/patient-history");
-          }
-        }else{
-          history("/login");
-        }
-
-    }, []);
-
+  useEffect(() => {
+    setLoading(false);
+    if (AuthState.state.id) {
+      if (AuthState.state.role !== "pat") {
+        history("/utils/patient-history");
+      }
+    } else {
+      history("/login");
+    }
+  }, []);
 
   return (
     <>
@@ -88,7 +88,7 @@ const VadiyaSetu = () => {
             </Grid>
             <Grid xs={12} sm={2}>
               <Typography variant="h2" color="inherit">
-                {"Vaibhav Tyagi"}
+                {"Jagannath"}
               </Typography>
               <Typography variant="subtitle1" color="inherit">
                 Mob: {"8859735728"}
@@ -97,7 +97,7 @@ const VadiyaSetu = () => {
 
             <Grid xs={12} sm={2}>
               <Box>
-                <Box sx={{ color: "text.secondary" }}>Age&Gender</Box>
+                <Box sx={{ color: "text.secondary", ml: "20" }}>Age&Gender</Box>
 
                 <Box
                   sx={{
@@ -107,7 +107,8 @@ const VadiyaSetu = () => {
                     fontSize: 14,
                   }}
                 >
-                22 Gender:-Male
+                  22
+                  <MaleIcon fontSize="small" />
                 </Box>
               </Box>
             </Grid>
@@ -123,7 +124,7 @@ const VadiyaSetu = () => {
                     fontSize: 14,
                   }}
                 >
-                184cm
+                  184cm
                 </Box>
               </Box>
             </Grid>
@@ -151,7 +152,7 @@ const VadiyaSetu = () => {
                   sx={{
                     display: "inline",
                     fontWeight: "bold",
-                    mx: 0.5,
+
                     fontSize: 14,
                   }}
                 >
@@ -175,7 +176,7 @@ const VadiyaSetu = () => {
                   </Grid>
                   <Grid item>
                     <Typography variant="body1" color="inherit">
-                      {" Vaibhav Tyagi"}
+                      {"Jagannath Patta"}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -273,7 +274,7 @@ const VadiyaSetu = () => {
                   </Grid>
                   <Grid item>
                     <Typography variant="body1" color="inherit">
-                      {"vtvaibhavtyagi@gmail.com"}
+                      {"jagannath@gmail.com"}
                     </Typography>
                   </Grid>
                 </Grid>

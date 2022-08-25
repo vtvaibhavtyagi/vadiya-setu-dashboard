@@ -15,7 +15,9 @@ const Utilscurrpatient = Loadable(lazy(() => import('views/utilities/currPatient
 const UtilsShadow = Loadable(lazy(() => import('views/utilities/Shadow')));
 const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/PastApprovals')));
 const UtilsPendingApprovals = Loadable(lazy(() => import('views/utilities/PendApprov')));
+const Test = Loadable(lazy(() => import('views/utilities/test.js')));
 const UtilsScanner = Loadable(lazy(() => import('views/utilities/Scanner')));
+
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 
