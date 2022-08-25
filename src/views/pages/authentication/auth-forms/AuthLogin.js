@@ -39,6 +39,7 @@ import axios from 'axios';
 import { useContext } from 'react';
 import AuthContext from 'AuthContext';
 import { useNavigate  } from "react-router-dom";
+
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const FirebaseLogin = ({ ...others }) => {
@@ -51,6 +52,14 @@ const FirebaseLogin = ({ ...others }) => {
     const googleHandler = async () => {
         console.error('Login');
     };
+
+    const getPatientData = () => {
+        health.get("", {
+            headers:{
+                
+            }
+        })
+    }
 
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => {

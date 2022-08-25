@@ -20,10 +20,11 @@ import MainCard from "ui-component/cards/MainCard";
 import SecondaryAction from "ui-component/cards/CardSecondaryAction";
 import { gridSpacing } from "store/constant";
 import TableChartOutlinedIcon from "@mui/icons-material/TableChartOutlined";
-import { useEffect, useState } from 'react';
-import AuthContext from 'AuthContext';
-import { useContext } from 'react';
-import { useNavigate  } from "react-router-dom";
+import MaleIcon from "@mui/icons-material/Male";
+import { useEffect, useState } from "react";
+import AuthContext from "AuthContext";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import health from "../../../src/api/health";
 // ==============================|| TYPOGRAPHY ||============================== //
 // import Particle from "themes/particle";
@@ -57,8 +58,8 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 const getRequestsData = async (AuthState) => {
   console.log(AuthState.state.id);
-  var data ={"email":AuthState.state.email}
-  let response = await health.post("/patient/read",data, {
+  var data = { email: AuthState.state.email };
+  let response = await health.post("/patient/read", data, {
     headers: {
       pid: AuthState.state.id,
       Authorization: "Bearer " + AuthState.state.auth_token,
@@ -72,16 +73,16 @@ const getRequestsData = async (AuthState) => {
 const VadiyaSetu = () => {
   const theme = useTheme();
   const AuthState = useContext(AuthContext);
-    var history = useNavigate();  
-    const [UserData, setUserData] = useState([]);
+  var history = useNavigate();
+  const [UserData, setUserData] = useState([]);
 
-    // const [patientList, setPatientList] = useState([]);
+  // const [patientList, setPatientList] = useState([]);
   useEffect(() => {
     async function someFunc() {
       let respons = await getRequestsData(AuthState);
       if (respons.status === "success") {
-          console.log(respons.payload);
-          setUserData(respons.payload);
+        console.log(respons.payload);
+        setUserData(respons.payload);
       }
       console.log(respons, AuthState.state.id);
     }
@@ -96,26 +97,24 @@ const VadiyaSetu = () => {
       history("/login");
     }
 
-  // const [isLoading, setLoading] = useState(true);
-  //   useEffect(() => {
-  //       setLoading(false);
-  //       if( AuthState.state.id ){
-  //         if( AuthState.state.role !== 'pat'  ){
-  //           history("/utils/patient-history");
-  //         }else{
-  //           let respons = getRequestsData(AuthState);
-  //           if (respons.status === "success") {
-  //               console.log(respons.payload);
-  //               setUserData(respons.payload);
-              
-  //           }
-  //         }
-  //       }else{
-  //         history("/login");
-  //       }
+    // const [isLoading, setLoading] = useState(true);
+    //   useEffect(() => {
+    //       setLoading(false);
+    //       if( AuthState.state.id ){
+    //         if( AuthState.state.role !== 'pat'  ){
+    //           history("/utils/patient-history");
+    //         }else{
+    //           let respons = getRequestsData(AuthState);
+    //           if (respons.status === "success") {
+    //               console.log(respons.payload);
+    //               setUserData(respons.payload);
 
-    }, []);
-
+    //           }
+    //         }
+    //       }else{
+    //         history("/login");
+    //       }
+  }, []);
 
   return (
     <>
@@ -280,7 +279,7 @@ const VadiyaSetu = () => {
                   </Grid>
                   <Grid item>
                     <Typography variant="body1" color="inherit">
-                    {UserData.phone}
+                      {UserData.phone}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -298,7 +297,7 @@ const VadiyaSetu = () => {
                   </Grid>
                   <Grid item>
                     <Typography variant="body1" color="inherit">
-                    {UserData.aadhar}
+                      {UserData.aadhar}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -318,7 +317,7 @@ const VadiyaSetu = () => {
                   </Grid>
                   <Grid item>
                     <Typography variant="body1" color="inherit">
-                    {UserData.email}
+                      {UserData.email}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -338,7 +337,7 @@ const VadiyaSetu = () => {
                   </Grid>
                   <Grid item>
                     <Typography variant="body1" color="inherit">
-                    {UserData.address + UserData.district + UserData.state}
+                      {UserData.address + UserData.district + UserData.state}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -358,7 +357,7 @@ const VadiyaSetu = () => {
                   </Grid>
                   <Grid item>
                     <Typography variant="body1" color="inherit">
-                    {UserData.pincode}
+                      {UserData.pincode}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -397,13 +396,13 @@ const VadiyaSetu = () => {
                     >
                       <Grid item>
                         <Typography variant="subtitle1" color="inherit">
-                          {"VadiyaSetu:  "}{UserData.name}
+                          {"VadiyaSetu:  "}
+                          {UserData.name}
                         </Typography>
                       </Grid>
                       <Grid item>
                         <Typography variant="h2" color="inherit">
                           {AuthState.state.id}
-                          
                         </Typography>
                       </Grid>
                     </Grid>

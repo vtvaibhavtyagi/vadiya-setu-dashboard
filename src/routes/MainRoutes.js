@@ -17,6 +17,8 @@ const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/PastAppro
 const UtilsPendingApprovals = Loadable(lazy(() => import('views/utilities/PendApprov')));
 const Test = Loadable(lazy(() => import('views/utilities/test.js')));
 const UtilsScanner = Loadable(lazy(() => import('views/utilities/Scanner')));
+const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons')));
+const UtilsPatientRecord = Loadable(lazy(() => import('views/utilities/PatientRecord')))
 
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
@@ -95,9 +97,17 @@ const MainRoutes = {
                     element: <UtilsShadow />
                 }
             ]
+        },{
+            path: 'utils',
+            children: [
+                {
+                    path: 'patient-record',
+                    element: <UtilsPatientRecord />
+                }
+            ]
         },
         {
-            path: 'patient',
+            path: 'icons',
             children: [
                 {
                     path: 'pendingApprovals',

@@ -16,8 +16,16 @@ import SubCard from "ui-component/cards/SubCard";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
-import AspectRatioIcon from '@mui/icons-material/AspectRatio';
+import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import MainCard from "ui-component/cards/MainCard";
+import { maxHeight } from "@mui/system";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListSubheader from "@mui/material/ListSubheader";
+
+import LockOpenIcon from "@mui/icons-material/LockOpen";
+import LockIcon from "@mui/icons-material/Lock";
 var dis = Datajson.disease;
 var st_color_class = "card-title";
 
@@ -65,8 +73,8 @@ export default class ReactCards extends React.Component {
     console.log(this.state.zooom);
     if (card_name === "disease") {
       dis[this.state.dis_tar].status == "open"
-        ? (st_color_class = "text-success")
-        : (st_color_class = "text-danger");
+        ? (st_color_class = true)
+        : (st_color_class = false);
       this.setState({ zoom_card_name: "disease" });
     } else if (card_name == "diagno") {
       this.setState({ zoom_card_name: "diagno" });
@@ -108,132 +116,277 @@ export default class ReactCards extends React.Component {
 
       <MainCard title="Disease" boxShadow="true">
         <Grid>
-          <Typography variant="h2" style={"inherit"}>
-            Nothing to show
-          </Typography>
+          <Typography variant="h2">Nothing to show</Typography>
         </Grid>
-
       </MainCard>
     );
 
     if (this.state.zoom_card_name == "disease") {
       card = (
-        <div
-          className="card text-dark shadow-lg bg-white mb-3"
-          style={{
-            height: "600px",
-            width: "1500px",
-            marginTop: "250px",
-            marginLeft: "150px",
-          }}
-        >
-          <div className="card-header">
-            <b>Disease</b>
-          </div>
-          <div className="card-body">
-            <h3 className="card-title">
-              <i>{dis[this.state.dis_tar].name}</i>
-            </h3>
-            <h5 className="card-title">
-              Date Of Registration:-{dis[this.state.dis_tar].dateOfReg}
-            </h5>
-            <h5 className={st_color_class}>{dis[this.state.dis_tar].status}</h5>
-            <br />
-            <h5 className="card-title">Reports</h5>
-            <ul>
-              {dis[this.state.dis_tar].reports.map((dis_repo) => (
-                <li className="card-text">
-                  <h6>{dis_repo}</h6>
-                </li>
-              ))}
-            </ul>
-            <h6 className="card-text" style={{ fontSize: "17px" }}>
-              {dis[this.state.dis_tar].desc}
-            </h6>
-          </div>
-        </div>
+        <Grid margin={5} sx={{ overflow: "auto" }}>
+          <MainCard title="Disease">
+            <Grid>
+              <Typography variant="h2">
+                {dis[this.state.dis_tar].name}
+              </Typography>
+            </Grid>
+            <Grid>
+              <Typography variant="subtitle1">
+                Date Of Registration: {dis[this.state.dis_tar].dateOfReg}
+              </Typography>
+            </Grid>
+            <br></br>
+            <Grid>
+              {/* {st_color_class}?<LockOpenIcon fontSize="small"/>:<LockIcon fontSize="small"/> */}
+            </Grid>
 
-        // <MainCard title="Disease" boxShadow="true">
+            <Grid sx={{ mx: 5 }}>
+              <SubCard title="Reports">
+                <List
+                  sx={{
+                    width: "100%",
+                    bgcolor: "background.paper",
+                    position: "relative",
+                    overflow: "auto",
+                    maxHeight: 300,
+                    "& ul": { padding: 0 },
+                  }}
+                  subheader={<li />}
+                >
+                  {dis[this.state.dis_tar].reports.map((dis_repo) => (
+                    <li key={`section-${dis_repo}`}>
+                      <ul>
+                        <ListItem key={`item-${dis_repo}`}>
+                          <ListItemText primary={`${dis_repo}`} />
+                        </ListItem>
+                      </ul>
+                    </li>
+                  ))}
+                </List>
+              </SubCard>
+            </Grid>
 
-        // </MainCard>
+            {/* // <ul> */}
+            {/* //   {dis[this.state.dis_tar].reports.map((dis_repo) => ( */}
+            {/* //     <li className="card-text">
+                //       <h6>{dis_repo}</h6>
+                //     </li>
+                //   ))}
+                // </ul> */}
+
+            <br></br>
+            <Grid sx={{ mx: 5 }}>
+              <SubCard title="More Details...">
+                <Typography variant="body1">
+                  {dis[this.state.dis_tar].desc}
+                </Typography>
+              </SubCard>
+            </Grid>
+          </MainCard>
+        </Grid>
+
+      
       );
     } else if (this.state.zoom_card_name == "diagno") {
       card = (
-        <div
-          className="card text-dark shadow-lg bg-white mb-3"
-          style={{
-            height: "600px",
-            width: "1500px",
-            marginTop: "250px",
-            marginLeft: "150px",
-          }}
-        >
-          <div className="card-header">
-            <b>Diagnostics</b>
-          </div>
-          <div className="card-body">
-            {dis[this.state.dis_tar].diagnosis.map((diag_data) => (
-              <div>
-                <h3 className="card-title">{diag_data.date}</h3>
-                <br />
-                <h4 className="card-title">Symptoms</h4>
-                <ul>
-                  {diag_data.vSymptoms.map((data_sym) => (
-                    <li className="card-text">
-                      <h5>{data_sym}</h5>
+        // <div
+        //   className="card text-dark shadow-lg bg-white mb-3"
+        //   style={{
+        //     height: "600px",
+        //     width: "1500px",
+        //     marginTop: "250px",
+        //     marginLeft: "150px",
+        //   }}
+        // >
+        //   <div className="card-header">
+        //     <b>Diagnostics</b>
+        //   </div>
+        //   <div className="card-body">
+        //     {dis[this.state.dis_tar].diagnosis.map((diag_data) => (
+        //       <div>
+        //         <h3 className="card-title">{diag_data.date}</h3>
+        //         <br />
+        //         <h4 className="card-title">Symptoms</h4>
+        //         <ul>
+        //           {diag_data.vSymptoms.map((data_sym) => (
+        //             <li className="card-text">
+        //               <h5>{data_sym}</h5>
+        //             </li>
+        //           ))}
+        //         </ul>
+        //       </div>
+        //     ))}
+        //   </div>
+        // </div>
+
+        <Grid margin={5} sx={{ overflow: "auto" }}>
+          <MainCard title="Diagnostics">
+            <Grid>
+              <Typography variant="h2">
+                {dis[this.state.dis_tar].name}
+              </Typography>
+            </Grid>
+            <Grid>
+              <Typography variant="subtitle1">
+                Date Of Registration: {dis[this.state.dis_tar].dateOfReg}
+              </Typography>
+            </Grid>
+            <br></br>
+            <Grid>
+              {/* {st_color_class}?<LockOpenIcon fontSize="small"/>:<LockIcon fontSize="small"/> */}
+            </Grid>
+
+            <Grid sx={{ mx: 5 }}>
+              <SubCard title="Reports">
+                <List
+                  sx={{
+                    width: "100%",
+                    bgcolor: "background.paper",
+                    position: "relative",
+                    overflow: "auto",
+                    maxHeight: 300,
+                    "& ul": { padding: 0 },
+                  }}
+                  subheader={<li />}
+                >
+                  {dis[this.state.dis_tar].reports.map((dis_repo) => (
+                    <li key={`section-${dis_repo}`}>
+                      <ul>
+                        <ListItem key={`item-${dis_repo}`}>
+                          <ListItemText primary={`${dis_repo}`} />
+                        </ListItem>
+                      </ul>
                     </li>
                   ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
+                </List>
+              </SubCard>
+            </Grid>
+
+            {/* // <ul> */}
+            {/* //   {dis[this.state.dis_tar].reports.map((dis_repo) => ( */}
+            {/* //     <li className="card-text">
+                //       <h6>{dis_repo}</h6>
+                //     </li>
+                //   ))}
+                // </ul> */}
+
+            <br></br>
+            <Grid sx={{ mx: 5 }}>
+              <SubCard title="More Details...">
+                <Typography variant="body1">
+                  {dis[this.state.dis_tar].desc}
+                </Typography>
+              </SubCard>
+            </Grid>
+          </MainCard>
+        </Grid>
       );
     } else if (this.state.zoom_card_name == "treatment") {
       card = (
-        <div
-          className="card text-dark shadow-lg bg-white mb-3"
-          style={{
-            height: "600px",
-            width: "1500px",
-            marginTop: "250px",
-            marginLeft: "150px",
-          }}
-        >
-          <div className="card-header">
-            <b>Treatment</b>
-          </div>
-          <div className="card-body">
+        // <div
+        //   className="card text-dark shadow-lg bg-white mb-3"
+        //   style={{
+        //     height: "600px",
+        //     width: "1500px",
+        //     marginTop: "250px",
+        //     marginLeft: "150px",
+        //   }}
+        // >
+        //   <div className="card-header">
+        //     <b>Treatment</b>
+        //   </div>
+        //   <div className="card-body">
+        //     <Grid>
+        //       <Grid item xs={6}>
+        //         <h5 className="card-title">Treatment Details</h5>
+        //         {dis[this.state.dis_tar].treatment.map((data_treat) => (
+        //           <div>
+        //             <ul>
+        //               <li>
+        //                 <h6 className="card-title">{data_treat.desc}</h6>
+        //                 <h7 className="card-title">{data_treat.date}</h7>
+        //               </li>
+        //             </ul>
+        //           </div>
+        //         ))}
+        //       </Grid>
+        //       <Grid item xs={6}>
+        //         <h5 className="card-title">Drugs</h5>
+        //         {dis[this.state.dis_tar].drugs.map((data_drugs) => (
+        //           <div>
+        //             <ul>
+        //               <li>
+        //                 <h6 className="card-title">{data_drugs.name}</h6>
+        //                 <h7 className="card-title">{data_drugs.date}</h7>
+        //               </li>
+        //             </ul>
+        //           </div>
+        //         ))}
+        //       </Grid>
+        //     </Grid>
+        //   </div>
+        // </div>
+        <Grid margin={5} sx={{ overflow: "auto" }}>
+          <MainCard title="Treatment">
             <Grid>
-              <Grid item xs={6}>
-                <h5 className="card-title">Treatment Details</h5>
-                {dis[this.state.dis_tar].treatment.map((data_treat) => (
-                  <div>
-                    <ul>
-                      <li>
-                        <h6 className="card-title">{data_treat.desc}</h6>
-                        <h7 className="card-title">{data_treat.date}</h7>
-                      </li>
-                    </ul>
-                  </div>
-                ))}
-              </Grid>
-              <Grid item xs={6}>
-                <h5 className="card-title">Drugs</h5>
-                {dis[this.state.dis_tar].drugs.map((data_drugs) => (
-                  <div>
-                    <ul>
-                      <li>
-                        <h6 className="card-title">{data_drugs.name}</h6>
-                        <h7 className="card-title">{data_drugs.date}</h7>
-                      </li>
-                    </ul>
-                  </div>
-                ))}
-              </Grid>
+              <Typography variant="h2">
+                {dis[this.state.dis_tar].name}
+              </Typography>
             </Grid>
-          </div>
-        </div>
+            <Grid>
+              <Typography variant="subtitle1">
+                Date Of Registration: {dis[this.state.dis_tar].dateOfReg}
+              </Typography>
+            </Grid>
+            <br></br>
+            <Grid>
+              {/* {st_color_class}?<LockOpenIcon fontSize="small"/>:<LockIcon fontSize="small"/> */}
+            </Grid>
+
+            <Grid sx={{ mx: 5 }}>
+              <SubCard title="Reports">
+                <List
+                  sx={{
+                    width: "100%",
+                    bgcolor: "background.paper",
+                    position: "relative",
+                    overflow: "auto",
+                    maxHeight: 300,
+                    "& ul": { padding: 0 },
+                  }}
+                  subheader={<li />}
+                >
+                  {dis[this.state.dis_tar].reports.map((dis_repo) => (
+                    <li key={`section-${dis_repo}`}>
+                      <ul>
+                        <ListItem key={`item-${dis_repo}`}>
+                          <ListItemText primary={`${dis_repo}`} />
+                        </ListItem>
+                      </ul>
+                    </li>
+                  ))}
+                </List>
+              </SubCard>
+            </Grid>
+
+            {/* // <ul> */}
+            {/* //   {dis[this.state.dis_tar].reports.map((dis_repo) => ( */}
+            {/* //     <li className="card-text">
+                //       <h6>{dis_repo}</h6>
+                //     </li>
+                //   ))}
+                // </ul> */}
+
+            <br></br>
+            <Grid sx={{ mx: 5 }}>
+              <SubCard title="More Details...">
+                <Typography variant="body1">
+                  {dis[this.state.dis_tar].desc}
+                </Typography>
+              </SubCard>
+            </Grid>
+          </MainCard>
+        </Grid>
       );
     }
 
@@ -351,13 +504,12 @@ export default class ReactCards extends React.Component {
             </Grid>
 
             <Grid item xs={3}>
-                <Button
-                  fontSize="large"
-                  onClick={this.onzoom.bind(this, "diagno")}
-                >
-                  <AspectRatioIcon />
-                </Button>
-             
+              <Button
+                fontSize="large"
+                onClick={this.onzoom.bind(this, "diagno")}
+              >
+                <AspectRatioIcon />
+              </Button>
             </Grid>
             <Grid item xs={4}>
               <Button
@@ -400,7 +552,7 @@ export default class ReactCards extends React.Component {
         >
           <Zoom
             in={this.state.zooom}
-            style={{ transitionDelay: this.state.zooom ? "200ms" : "0ms" }}
+            style={{ transitionDelay: this.state.zooom ? "100ms" : "0ms" }}
           >
             {card}
           </Zoom>
