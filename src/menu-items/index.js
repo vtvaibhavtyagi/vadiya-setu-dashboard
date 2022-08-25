@@ -13,19 +13,20 @@ import { useEffect , useState } from 'react';
 
 function SomeFunc(){
     var Mn_items =  [];
+   
 
     // const AuthState = useContext(AuthContext);
-        var auth_data = JSON.parse(localStorage.getItem('auth_data')) 
-        if( auth_data.role === 'doc'  ){
-          Mn_items = [dashboard, docUtil, other]
-          console.log("Mn_items",Mn_items)
+        var auth_data = JSON.parse(localStorage.getItem('auth_data'))
+       
+        if( auth_data.role === "doc"  ){
+          Mn_items = [dashboard, docUtil, other]          
         }
-        else if( auth_data.role === 'pat'  ){
+        else if( auth_data.role === "pat"  ){
           Mn_items =  [dashboard, patUtils, other]
         }
-      else{
-          Mn_items =[dashboard, pages, utilities, other]
-      }
+        else{
+              Mn_items =[dashboard, pages, utilities, other]
+        }
 
 // // const [isLoading, setLoading] = useState(true);
 //     // useEffect(() => {

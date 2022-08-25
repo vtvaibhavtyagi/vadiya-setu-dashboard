@@ -54,6 +54,7 @@ const FirebaseRegister = ({ ...others }) => {
   const [level, setLevel] = useState();
 
   const SingUpData = async (data) => {
+    console.log('Data',data)
     let response = await health.post("/doctor/register", data)
     response = await response.data
     console.log(response)
@@ -62,6 +63,7 @@ const FirebaseRegister = ({ ...others }) => {
 
   const SingUpSubmit = (values) => {
     // e.preventDefault();
+    console.log(values)
     var data ={     
       "address": values.address,
       "aadhar": values.aadhar,
@@ -575,6 +577,7 @@ const FirebaseRegister = ({ ...others }) => {
                   type="submit"
                   variant="contained"
                   color="secondary"
+                  onClick={() => SingUpSubmit(values)}
                 >
                   Sign up
                 </Button>
