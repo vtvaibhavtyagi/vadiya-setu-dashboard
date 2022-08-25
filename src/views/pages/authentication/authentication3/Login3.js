@@ -27,11 +27,11 @@ const Login = () => {
         justifyContent="flex-end"
         sx={{ minHeight: "100vh" }}
       >
-        <Grid item xs={12}>
+        <Grid item xs={6}>
           <Grid
             container
-            justifyContent="center"
-            alignItems="center"
+            justifyContent="right"
+            alignItems="right"
             sx={{ minHeight: "calc(100vh - 68px)" }}
           >
             <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
@@ -39,7 +39,7 @@ const Login = () => {
                 <Grid
                   container
                   spacing={2}
-                  alignItems="center"
+                  alignItems="left"
                   justifyContent="center"
                 >
                   <Grid item sx={{ mb: 3 }}>
@@ -107,6 +107,7 @@ const Login = () => {
             </Grid>
           </Grid>
         </Grid>
+
       </Grid>
     </AuthWrapper1>
   );

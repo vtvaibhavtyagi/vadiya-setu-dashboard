@@ -36,7 +36,7 @@ import { strengthColor, strengthIndicator } from "utils/password-strength";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-import health from  'api/health';
+import health from "api/health";
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
 const FirebaseRegister = ({ ...others }) => {
@@ -54,39 +54,38 @@ const FirebaseRegister = ({ ...others }) => {
   const [level, setLevel] = useState();
 
   const SingUpData = async (data) => {
-    let response = await health.post("/doctor/register", data)
-    response = await response.data
-    console.log(response)
+    let response = await health.post("/doctor/register", data);
+    response = await response.data;
+    console.log(response);
     return response;
-}
+  };
 
   const SingUpSubmit = (values) => {
     // e.preventDefault();
-    var data ={     
-      "address": values.address,
-      "aadhar": values.aadhar,
-      "specilization": values.specilization,      
-      "email": values.email,
-      "hospitalDetails": values.hospital,
-      "name":  values.fname + ' ' + values.lname,
-      "password": values.password ,
-      "phone": values.mobno,
-      "pincode": values.pincode,
+    var data = {
+      address: values.address,
+      aadhar: values.aadhar,
+      specilization: values.specilization,
+      email: values.email,
+      hospitalDetails: values.hospital,
+      name: values.fname + " " + values.lname,
+      password: values.password,
+      phone: values.mobno,
+      pincode: values.pincode,
       // "state": values.istate
-    } 
+    };
 
     let res = SingUpData(data);
-    // let navigate = useNavigate(); 
-    if (res.status === 'success'){
-            // const routeChange = () =>{ 
-            // let path = `/pages/login/login3`; 
-            // navigate(path);
-            // }
-            console.log("SuccessFullSingUp")
-    }else{
-        console.log("errorInSingUp")
-    }        
-    
+    // let navigate = useNavigate();
+    if (res.status === "success") {
+      // const routeChange = () =>{
+      // let path = `/pages/login/login3`;
+      // navigate(path);
+      // }
+      console.log("SuccessFullSingUp");
+    } else {
+      console.log("errorInSingUp");
+    }
   };
 
   const googleHandler = async () => {
@@ -133,7 +132,9 @@ const FirebaseRegister = ({ ...others }) => {
             .email("Must be a valid email")
             .max(255)
             .required("Email is required"),
-          password: Yup.string().max(255).required("Password is required"),
+          password: Yup.string()
+            .max(255)
+            .required("Password Should be atleast of length 8"),
           fname: Yup.string().required("First Name is Required"),
           lname: Yup.string().required("Last Name is Required"),
           address: Yup.string().required("Address is Required"),
@@ -142,7 +143,6 @@ const FirebaseRegister = ({ ...others }) => {
           pincode: Yup.number().required("Pin Code is Required"),
           field: Yup.string().required("Field is Required"),
           IMRno: Yup.number().required("IMR id. is Required"),
-
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
@@ -502,40 +502,36 @@ const FirebaseRegister = ({ ...others }) => {
                     </FormHelperText>
                   )}
                 </FormControl>
-                
               </Grid>
-              
             </Grid>
 
             <FormControl
-                fullWidth
-                error={Boolean(touched.hospital && errors.hospital)}
-                sx={{ ...theme.typography.customInput }}
-              >
-                <InputLabel htmlFor="outlined-adornment-hos-register">
-                  Hospital Name
-                </InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-hos-register"
-                  type="name"
-                  value={values.hospital}
-                  // onChange={e => setEmail(e.target.value)}
-                  name="hospital"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  inputProps={{}}
-                />
-                {touched.hospital && errors.hospital && (
-                  <FormHelperText
-                    error
-                    id="standard-weight-helper-text--register"
-                  >
-                    { errors.hospital}
-                  </FormHelperText>
-                )}
-              </FormControl>
-
-
+              fullWidth
+              error={Boolean(touched.hospital && errors.hospital)}
+              sx={{ ...theme.typography.customInput }}
+            >
+              <InputLabel htmlFor="outlined-adornment-hos-register">
+                Hospital Name
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-hos-register"
+                type="name"
+                value={values.hospital}
+                // onChange={e => setEmail(e.target.value)}
+                name="hospital"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                inputProps={{}}
+              />
+              {touched.hospital && errors.hospital && (
+                <FormHelperText
+                  error
+                  id="standard-weight-helper-text--register"
+                >
+                  {errors.hospital}
+                </FormHelperText>
+              )}
+            </FormControl>
 
             <Grid container alignItems="center" justifyContent="space-between">
               <Grid item>

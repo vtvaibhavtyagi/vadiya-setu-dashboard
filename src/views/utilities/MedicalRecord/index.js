@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 // material-ui
 import { Box, Card, Grid, Typography, Divider } from "@mui/material";
 
@@ -11,42 +11,36 @@ import SecondaryAction from "ui-component/cards/CardSecondaryAction";
 import { gridSpacing } from "store/constant";
 import SearchRecord from "./SearchRecord";
 import ReportCard from "./ReportCard";
-import AuthContext from 'AuthContext';
-import { useContext } from 'react';
-import { useNavigate  } from "react-router-dom";
+import AuthContext from "AuthContext";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 // ===============================|| UI COLOR ||=============================== //
 
 const UIColor = () => {
-
   const AuthState = useContext(AuthContext);
   var history = useNavigate();
-  
+
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
-      setLoading(false);
-      // if( AuthState.state.id ){
-      //     if( AuthState.state.role !== 'pat' ){
-      //       history("/utils/patient-history");
-      //     }
-      //   }else{
-      //     history("/login");
-      //   }
-
+    setLoading(false);
+    // if( AuthState.state.id ){
+    //     if( AuthState.state.role !== 'pat' ){
+    //       history("/utils/patient-history");
+    //     }
+    //   }else{
+    //     history("/login");
+    //   }
   }, []);
 
-  return(
+  return (
     <>
-  <Grid container spacing={gridSpacing}>
-    <Grid>
-      <SearchRecord />
-    </Grid>
+      <Grid container spacing={gridSpacing}>
+        <ReactCards />
 
-    <ReactCards />
-
-    {/* </MainCard> */}
-  </Grid>
-  </>
+        {/* </MainCard> */}
+      </Grid>
+    </>
   );
-  };
+};
 
 export default UIColor;

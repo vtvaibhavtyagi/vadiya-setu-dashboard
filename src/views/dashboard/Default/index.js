@@ -25,9 +25,9 @@ const Dashboard = () => {
     useEffect(() => {
         setLoading(false);
         if( AuthState.state.id ){
-            if( AuthState.state.role !== 'pat' && AuthState.state.role !== 'doc'  ){
-              history("/utils/patient-history");
-            }
+            //if( AuthState.state.role !== 'pat' && AuthState.state.role !== 'doc'  ){
+              history("/");
+            //}
           }else{
             history("/login");
           }

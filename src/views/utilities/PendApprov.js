@@ -94,9 +94,7 @@ const PenApprovals = () => {
     }
   }, []);
 
-  const dateFormatter = (date) => {
-    return format(new Date(date), "dd/MMM");
-  };
+  
 
   return (
     <>

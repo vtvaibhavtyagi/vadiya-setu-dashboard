@@ -129,7 +129,7 @@ const FirebaseRegister = ({ ...others }) => {
                 }}
                 validationSchema={Yup.object().shape({
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                    password: Yup.string().max(255).required('Password is required'),
+                    password: Yup.string().max(255).required('Password Should be of atleast length 8'),
                     fname: Yup.string().required('First Name is Required'),
                     lname: Yup.string().required('Last Name is Required'),
                     address: Yup.string().required('Address is Required'),
