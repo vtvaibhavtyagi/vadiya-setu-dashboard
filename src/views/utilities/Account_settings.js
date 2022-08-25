@@ -96,30 +96,34 @@ function Account_settings() {
     return (
         <MainCard title="Account Settings">
             <Grid container spacing={gridSpacing}>
-                <Grid item xs={2}>
+                <Grid item xs={4}>
 
                 </Grid>
-                <Grid item xs={8}>
-                    <Box
+                <Grid item xs={4}>
+                    <Box container
                         sx={{
                             boxShadow: 3,
-                            width: '58rem',
-                            height: '5rem',
+                            height: '30rem',
                             bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : '#fff'),
                             color: (theme) =>
                                 theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
                             p: 1,
                             m: 1,
                             borderRadius: 2,
-                            textAlign: 'center',
                             fontSize: '0.875rem',
                             fontWeight: '700',
+                            
                         }}
                     >
-                        <Typography>Name</Typography>
+
+                        <TextField id="outlined-basic" label="Outlined" variant="outlined" sx={{}} />
+                        <TextField id="outlined-basic" label="Outlined" variant="outlined" sx={{}} />
+                        <TextField id="outlined-basic" label="Outlined" variant="outlined" sx={{}} />
+                        
+                        
                     </Box>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={4}>
 
                 </Grid>
             </Grid>
