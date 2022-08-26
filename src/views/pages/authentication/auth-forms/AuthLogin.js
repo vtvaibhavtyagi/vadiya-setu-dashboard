@@ -119,7 +119,15 @@ const FirebaseLogin = ({ ...others }) => {
     localStorage.setItem("auth_data", JSON.stringify(session_data));
     AuthState.update(localStorage.getItem("auth_data"));
     console.log(localStorage.getItem("auth_data"));
-    history("/utils/vadiyasetu-card");
+
+    var auth_d = localStorage.getItem("auth_data");
+    if (auth_d.role === "pat") {
+      history("/utils/vadiyasetu-card");
+    } else if (auth_d.role === "doc") {
+      history("/utils/patient-history");
+    } else {
+      history("/dashboard/default");
+    }
   }
 
   return (

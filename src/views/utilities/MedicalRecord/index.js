@@ -27,8 +27,6 @@ const UIColor = () => {
       if (AuthState.state.role !== "pat") {
         history("/login");
       }
-    } else {
-      history("/login");
     }
   }, []);
 
