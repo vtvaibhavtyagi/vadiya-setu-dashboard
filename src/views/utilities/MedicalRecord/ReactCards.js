@@ -137,7 +137,11 @@ export default class ReactCards extends React.Component {
             </Grid>
             <br></br>
             <Grid>
-              {/* {st_color_class}?<LockOpenIcon fontSize="small"/>:<LockIcon fontSize="small"/> */}
+              {st_color_class ? (
+                <LockOpenIcon fontSize="small" />
+              ) : (
+                <LockIcon fontSize="small" />
+              )}
             </Grid>
 
             <Grid sx={{ mx: 5 }}>
@@ -184,8 +188,6 @@ export default class ReactCards extends React.Component {
             </Grid>
           </MainCard>
         </Grid>
-
-      
       );
     } else if (this.state.zoom_card_name == "diagno") {
       card = (
@@ -233,7 +235,11 @@ export default class ReactCards extends React.Component {
             </Grid>
             <br></br>
             <Grid>
-              {/* {st_color_class}?<LockOpenIcon fontSize="small"/>:<LockIcon fontSize="small"/> */}
+              {st_color_class ? (
+                <LockOpenIcon fontSize="small" />
+              ) : (
+                <LockIcon fontSize="small" />
+              )}
             </Grid>
 
             <Grid sx={{ mx: 5 }}>
@@ -340,7 +346,11 @@ export default class ReactCards extends React.Component {
             </Grid>
             <br></br>
             <Grid>
-              {/* {st_color_class}?<LockOpenIcon fontSize="small"/>:<LockIcon fontSize="small"/> */}
+              {st_color_class ? (
+                <LockOpenIcon fontSize="small" />
+              ) : (
+                <LockIcon fontSize="small" />
+              )}
             </Grid>
 
             <Grid sx={{ mx: 5 }}>

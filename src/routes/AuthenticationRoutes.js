@@ -14,6 +14,7 @@ const AuthRegisterUser = Loadable(
 const AuthRegisterDoc = Loadable(
   lazy(() => import("views/pages/authentication/authentication3/RegisterDoc"))
 );
+const LandingPage = Loadable(lazy(() => import("views/landingPage/index.js")));
 
 // ==============================|| AUTHENTICATION ROUTING ||============================== //
 
@@ -21,6 +22,10 @@ const AuthenticationRoutes = {
   path: "/",
   element: <MinimalLayout />,
   children: [
+    {
+      path: "/",
+      element: <LandingPage />,
+    },
     {
       path: "/login",
       element: <AuthLogin3 />,

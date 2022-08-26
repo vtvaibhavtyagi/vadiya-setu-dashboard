@@ -23,22 +23,20 @@ const UIColor = () => {
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(false);
-    // if( AuthState.state.id ){
-    //     if( AuthState.state.role !== 'pat' ){
-    //       history("/utils/patient-history");
-    //     }
-    //   }else{
-    //     history("/login");
-    //   }
+    if (AuthState.state.id) {
+      if (AuthState.state.role !== "pat") {
+        history("/login");
+      }
+    } else {
+      history("/login");
+    }
   }, []);
 
   return (
     <>
-      
-        <ReactCards />
+      <ReactCards />
 
-        {/* </MainCard> */}
-  
+      {/* </MainCard> */}
     </>
   );
 };

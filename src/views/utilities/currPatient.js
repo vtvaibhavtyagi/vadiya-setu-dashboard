@@ -25,18 +25,15 @@ import {
 import MainCard from "ui-component/cards/MainCard";
 import SecondaryAction from "ui-component/cards/CardSecondaryAction";
 import { gridSpacing } from "store/constant";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 // import VaidyaSetu from './VaidyaSetu';
 import AuthContext from "AuthContext";
-import health from "../../../src/api/health";
+
 import { useContext } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
 import health from "api/health";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
-import AddDisease from "./AddDisease";
+import AddDisease from "./PatientRecord.js/AddDisease";
 
 // ===============================|| COLOR BOX ||=============================== //
 
@@ -93,19 +90,6 @@ ColorBox.propTypes = {
 //   const handleOpen = () => {
 //       setOpen(true);
 //       setChecked((prev) => !prev);
-//   };
-
-//   const SearchPatient = (AuthState, id) => {
-//       var data = {"pid":id}
-//       let response = health.post("/doctor/search", (data = data), {
-//           headers: {
-//             did: AuthState.state.pid,
-//             Authorization: "Bearer " + AuthState.state.auth_token,
-//           },
-//         });
-//         response = response.data;
-
-//         return response;
 //   };
 
 //   const handleClose = () => {
@@ -217,7 +201,7 @@ const UIColor = () => {
                 <InputAdornment
                   sx={{ cursor: "pointer" }}
                   position="end"
-                  onClick={() => searchPatient()}
+                  onClick={() => SearchPatient()}
                 >
                   <SearchIcon />
                 </InputAdornment>
