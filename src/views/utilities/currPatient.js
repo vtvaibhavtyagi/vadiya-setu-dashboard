@@ -6,35 +6,20 @@ import Zoom from "@mui/material/Zoom";
 import CardContent from "@mui/material/CardContent";
 
 // material-ui
-import {
-  Box,
-  Card,
-  Grid,
-  Typography,
-  TextField,
-  Button,
-  InputAdornment,
-  List,
-  ListItem,
-  ListItemText,
-  IconButton,
-  Tooltip,
-} from "@mui/material";
+import { Box, Card, Grid, Typography } from "@mui/material";
 
 // project imports
+import SubCard from "ui-component/cards/SubCard";
 import MainCard from "ui-component/cards/MainCard";
 import SecondaryAction from "ui-component/cards/CardSecondaryAction";
 import { gridSpacing } from "store/constant";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 // import VaidyaSetu from './VaidyaSetu';
 import AuthContext from "AuthContext";
-
+import health from "../../../src/api/health";
 import { useContext } from "react";
-import SearchIcon from "@mui/icons-material/Search";
-import health from "api/health";
-import EditIcon from "@mui/icons-material/Edit";
-import AddIcon from "@mui/icons-material/Add";
-import AddDisease from "./PatientRecord/AddDisease";
-
+import { useNavigate } from "react-router-dom";
 // ===============================|| COLOR BOX ||=============================== //
 
 const ColorBox = ({ bgcolor, title, data, dark }) => (
@@ -82,95 +67,65 @@ ColorBox.propTypes = {
 
 // ===============================|| UI COLOR ||=============================== //
 
-// function UIColor() {
-//   const [open, setOpen] = React.useState(false);
-
-//   const [checked, setChecked] = React.useState(false);
-//   const AuthState = useContext(AuthContext);
-//   const handleOpen = () => {
-//       setOpen(true);
-//       setChecked((prev) => !prev);
-//   };
-
-//   const handleClose = () => {
-//       setOpen(false);
-//       setChecked((prev) => !prev);
-//   }
-//   const style = {
-//       position: 'absolute',
-//       top: '50%',
-//       left: '40%',
-//       transform: 'translate(-50%, -50%)',
-//       width: 400,
-//       bgcolor: 'background.paper',
-//       boxShadow: 24,
-//       p: 4,
-//   };
-
-//     return (
-//         <MainCard title="Create Request">
-//             <Grid container spacing={gridSpacing}>
-//                 <Grid item xs={12}>
-//                     <SubCard title="Patient ID">
-//                         <Grid container spacing={2}>
-//                             <Grid item xs={6}>
-//                                 <TextField id="outlined-basic" label="Patient_ID" variant="outlined" fullWidth="true" />
-//                             </Grid>
-//                             <Grid item xs={2}>
-
-//                             </Grid>
-//                             <Grid item xs={4}>
-//                                 <Button variant="outlined" onClick={SearchPatient} size="large" sx={{ mt: 0.5 }}>Get Details</Button>
-//                             </Grid>
-//                         </Grid>
-
-//                     </SubCard>
-//                 </Grid>
-//             </Grid>
-
-//             {/* <Modal
-//                 open={open}
-//                 onClose={handleClose}
-//                 aria-labelledby="modal-modal-title"
-//                 aria-describedby="modal-modal-description"
-//             >
-//                 <Zoom in={checked} style={{ transitionDelay: checked ? '100ms' : '0ms' }}>
-//                     <Card sx={style}>
-//                         <CardContent>
-//                             <Typography>Helo</Typography>
-//                         </CardContent>
-//                     </Card>
-//                 </Zoom>
-//             </Modal> */}
-
-//         </MainCard>
-//     )
-// }
-
-// export default UIColor;
-const UIColor = () => {
-  const [pid, setPid] = useState("");
-  const [patientData, setPatientData] = useState(null);
+function UIColor() {
   const [open, setOpen] = React.useState(false);
 
+  const [pid_req, setpid_req] = React.useState();
+
+  const [respon, setrespon] = React.useState({ patientData: { name: "" } });
+
   const [checked, setChecked] = React.useState(false);
-  const AuthState = useContext(AuthContext);
+  var AuthState = useContext(AuthContext);
+  var history = useNavigate();
+
   const handleOpen = () => {
     setOpen(true);
     setChecked((prev) => !prev);
   };
 
-  const SearchPatient = (AuthState, id) => {
+  const SearchPatient = async (id, AuthState) => {
+    // console.log(id,AuthState);
     var data = { pid: id };
-    let response = health.post("/doctor/search", (data = data), {
+    console.log(data);
+
+    console.log(AuthState.state);
+    let response = await health.post("/doctor/search", (data = data), {
       headers: {
-        did: AuthState.state.pid,
+        did: AuthState.state.id,
         Authorization: "Bearer " + AuthState.state.auth_token,
       },
     });
-    response = response.data;
 
+    response = await response.data;
+    setrespon(response);
+    handleOpen();
+    console.log(response);
     return response;
+  };
+
+  async function RequestPatient(id, AuthState) {
+    var data = { pid: id };
+    let response = await health.post("/doctor/request", (data = data), {
+      headers: {
+        did: AuthState.state.id,
+        Authorization: "Bearer " + AuthState.state.auth_token,
+      },
+    });
+    response = await response.data;
+    console.log(response);
+    handleClose();
+    return response;
+  }
+  function GetPatientData(id, AuthState) {
+    history("/utils/patient-record", {
+      state: {
+        pid: id,
+      },
+    });
+  }
+
+  const pidreq_handler = (e) => {
+    setpid_req(e.target.value);
   };
 
   const handleClose = () => {
@@ -189,51 +144,99 @@ const UIColor = () => {
   };
 
   return (
-    <MainCard title="Current patient">
+    <MainCard title="Create Request">
       <Grid container spacing={gridSpacing}>
         <Grid item xs={12}>
-          <TextField
-            placeholder="Search Patient ID"
-            value={pid}
-            onChange={(e) => setPid(e.target.value)}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment
-                  sx={{ cursor: "pointer" }}
-                  position="end"
-                  onClick={() => SearchPatient()}
+          <SubCard title="Patient ID">
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <TextField
+                  id="outlined-basic"
+                  label="Patient_ID"
+                  onChange={pidreq_handler}
+                  variant="outlined"
+                />
+              </Grid>
+              <Grid item xs={2}></Grid>
+              <Grid item xs={4}>
+                <Button
+                  variant="outlined"
+                  onClick={(event) => SearchPatient(pid_req, AuthState)}
+                  size="large"
+                  sx={{ mt: 0.5 }}
                 >
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <List>
-            <ListItem
-              secondaryAction={
-                <>
-                  <Tooltip title="Edit Details">
-                    <IconButton edge="end" aria-label="delete">
-                      <EditIcon />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Add Disease">
-                    <IconButton edge="end" aria-label="add">
-                      <AddIcon />
-                    </IconButton>
-                  </Tooltip>
-                </>
-              }
-            ></ListItem>
-          </List>
-        </Grid>
-        <Grid item xs={12}>
-          {/* <AddDisease /> */}
+                  Get Details
+                </Button>
+              </Grid>
+            </Grid>
+          </SubCard>
         </Grid>
       </Grid>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Zoom
+          in={checked}
+          style={{ transitionDelay: checked ? "50ms" : "0ms" }}
+        >
+          <Card sx={style}>
+            <CardContent>
+              <Typography variant="h3" color="inherit" sx={{ mx: "1" }}>
+                {respon.patientData.name}
+              </Typography>
+              <Typography variant="subtitle1" color="inherit">
+                {respon.patientData.email}
+              </Typography>
+              <br></br>
+              {respon.access == 0 ? (
+                <Button
+                  variant="outlined"
+                  onClick={(event) => RequestPatient(pid_req, AuthState)}
+                  size="large"
+                  sx={{ mt: 0.5 }}
+                >
+                  Send Request
+                </Button>
+              ) : (
+                <Button
+                  variant="outlined"
+                  onClick={(event) => GetPatientData(pid_req, AuthState)}
+                  size="large"
+                  sx={{ mt: 0.5 }}
+                >
+                  View Data
+                </Button>
+              )}
+              {/* <Button variant="outlined" onClick={RequestPatient()} size="large" sx={{ mt: 0.5 }}>Send Request</Button> */}
+            </CardContent>
+          </Card>
+        </Zoom>
+      </Modal>
+
+      {/* <Grid container spacing={gridSpacing}>
+                <Grid item xs={12}>
+                    <SubCard >
+                        <Grid container spacing={2}>
+                            <Grid item xs={6}>
+                                <Typography>Name</Typography>
+                            </Grid>
+                            <Grid item xs={2}>
+
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Button variant="outlined" onClick={RequestPatient()} size="large" sx={{ mt: 0.5 }}>Send Request</Button>
+                            </Grid>
+                        </Grid>
+
+                    </SubCard>
+                </Grid>
+            </Grid> */}
     </MainCard>
   );
-};
+}
+
 export default UIColor;

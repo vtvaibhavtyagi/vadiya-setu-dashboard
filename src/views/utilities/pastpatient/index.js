@@ -90,6 +90,11 @@ const PatientDetail = ({ isLoading }) => {
         setAnchorEl(null);
     };
 
+    const med_rec=(piid)=>{
+        localStorage.setItem('pid_mcard',piid);
+        history("/utils/Medical-Records");
+    }
+
     return (
         <>
             {isLoading ? (
@@ -156,8 +161,9 @@ const PatientDetail = ({ isLoading }) => {
                                                     {
 
                                                         ele.status ?
-                                                        <TaskAltIcon sx={{                                                      
+                                                        <TaskAltIcon onClick={event=>med_rec(ele.pid)} sx={{                                                      
                                                             color: theme.palette.success.dark,
+                                                            
                                                             ml: 2
                                                         }} fontSize="large" />
                                                        :
@@ -206,37 +212,3 @@ PatientDetail.propTypes = {
 };
 
 export default PatientDetail;
-
-
-{/* <Grid item xs={3}>
-                                        <MoreHorizOutlinedIcon
-                                            fontSize="small"
-                                            sx={{
-                                                color: theme.palette.primary[200],
-                                                cursor: 'pointer'
-                                            }}
-                                            aria-controls="menu-popular-card"
-                                            aria-haspopup="true"
-                                            onClick={handleClick}
-                                        />
-                                        <Menu
-                                            id="menu-popular-card"
-                                            anchorEl={anchorEl}
-                                            keepMounted
-                                            open={Boolean(anchorEl)}
-                                            onClose={handleClose}
-                                            variant="selectedMenu"
-                                            anchorOrigin={{
-                                                vertical: 'bottom',
-                                                horizontal: 'right'
-                                            }}
-                                            transformOrigin={{
-                                                vertical: 'top',
-                                                horizontal: 'right'
-                                            }}
-                                        >
-                                            <MenuItem onClick={handleClose}> Today</MenuItem>
-                                            <MenuItem onClick={handleClose}> This Month</MenuItem>
-                                            <MenuItem onClick={handleClose}> This Year </MenuItem>
-                                        </Menu>
-                            </Grid> */}

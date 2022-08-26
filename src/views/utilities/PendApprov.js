@@ -51,7 +51,7 @@ const getRequestsData = async (AuthState) => {
     },
   });
   response = await response.data;
-
+  console.log(response);
   return response;
 };
 
@@ -104,72 +104,67 @@ const PenApprovals = () => {
     }
   }, []);
 
-  
-
-  
-    return (
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="right">Doctor</TableCell>
-              <TableCell align="right">Specilization</TableCell>
-              <TableCell align="right">Hospital</TableCell>
-              <TableCell align="right">Action</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {patientList.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">
-                  <CardActions sx={{ p: 1.25, pt: 0, justifyContent: "center" }}>
-                    <Button
-                      size="small"
-                      disableElevation
-                      sx={{
-                        backgroundColor: theme.palette.success.light,
-                        color: theme.palette.success.dark,
-                      }}
-                      onClick={() => AcceptReq(AuthState, row)}
-                    >
-                      Accept
-                    </Button>
-                  </CardActions>
-                  <CardActions
+  return (
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="right">Doctor</TableCell>
+            <TableCell align="right">Specilization</TableCell>
+            <TableCell align="right">Hospital</TableCell>
+            <TableCell align="right">Action</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {patientList.map((row, i) => (
+            <TableRow
+              key={row.doctorName}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {row.doctorName}
+              </TableCell>
+              <TableCell align="right">{row.reqTime}</TableCell>
+              <TableCell align="right">{row.pid}</TableCell>
+              <TableCell align="right">
+                <CardActions sx={{ p: 1.25, pt: 0, justifyContent: "center" }}>
+                  <Button
+                    size="small"
+                    disableElevation
                     sx={{
-                      p: 1.25,
-                      pt: 0,
-                      justifyContent: "center",
+                      backgroundColor: theme.palette.success.light,
+                      color: theme.palette.success.dark,
+                    }}
+                    onClick={() => AcceptReq(AuthState, row)}
+                  >
+                    Accept
+                  </Button>
+                </CardActions>
+                <CardActions
+                  sx={{
+                    p: 1.25,
+                    pt: 0,
+                    justifyContent: "center",
+                  }}
+                >
+                  <Button
+                    size="small"
+                    disableElevation
+                    sx={{
+                      backgroundColor: theme.palette.error.light,
+                      color: theme.palette.error.dark,
                     }}
                   >
-                    <Button
-                      size="small"
-                      disableElevation
-                      sx={{
-                        backgroundColor: theme.palette.error.light,
-                        color: theme.palette.error.dark,
-                      }}
-                    >
-                      Reject
-                    </Button>
-                  </CardActions>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    );
-  
-
+                    Reject
+                  </Button>
+                </CardActions>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 };
 
 // PenApprovals.propTypes = {
@@ -177,5 +172,3 @@ const PenApprovals = () => {
 // };
 
 export default PenApprovals;
-
-

@@ -67,7 +67,7 @@ const patUtils = {
           id: "tabler-Pending-Approvals",
           title: "Pending Approvals",
           type: "item",
-          url: "/patient/pendingApprovals",
+          url: "/icons/pendingApprovals",
           breadcrumbs: false,
         },
         {

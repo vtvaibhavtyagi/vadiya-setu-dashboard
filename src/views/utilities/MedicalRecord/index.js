@@ -23,11 +23,6 @@ const UIColor = () => {
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(false);
-    if (AuthState.state.id) {
-      if (AuthState.state.role !== "pat") {
-        history("/login");
-      }
-    }
   }, []);
 
   return (

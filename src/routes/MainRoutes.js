@@ -117,10 +117,10 @@ const MainRoutes = {
       children: [
         {
           path: "patient-record",
-          lement: <UtilsPatientRecord />,
+          element: <UtilsPatientRecord />,
         },
       ],
-    },
+    },    
     {
       path: "icons",
       children: [

@@ -28,7 +28,7 @@ import Slide from "@mui/material/Slide";
 // project imports
 import { useNavigate } from "react-router";
 import MainCard from "ui-component/cards/MainCard";
-import { useState, useEffect, forwardRef } from "react";
+import { useState, useEffect, forwardRef, useContext } from "react";
 import health from "api/health";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -44,6 +44,9 @@ import {
 import { stateToHTML } from "draft-js-export-html";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import TestTable from "./TestTable";
+import AuthContext from "AuthContext";
+import { useLocation } from "react-router-dom";
+import AuthenticationRoutes from "routes/AuthenticationRoutes";
 
 // ===============================|| COLOR BOX ||=============================== //
 
@@ -126,6 +129,11 @@ function a11yProps(index) {
 // ===============================|| UI COLOR ||=============================== //
 
 const UIColor = () => {
+  var history = useNavigate();
+  const { state } = useLocation();
+  const { pid } = state;
+  const AuthState = useContext(AuthContext);
+
   const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
@@ -262,92 +270,96 @@ const UIColor = () => {
 
   useEffect(() => {
     async function getRecord() {
-      // let response = await health.get(`/doctor/patient/PYm3D-Q4kf`, {
-      //   headers: {
-      //     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiRFJtTzN6azFMdiIsInJvbGUiOiJkb2N0b3IiLCJpYXQiOjE2NjE0MjYxNzgsImV4cCI6MTY2MTQyOTc3OH0.2ZW_uPFMNdMKvNRYnEWjvautst1A2jHTZOq0wviJQW8",
-      //     "did": "DRmO3zk1Lv"
-      //   }
-      // })
-      let response = {
-        status: "success",
-        patientData: {
-          status: "success",
-          patient: {
-            address: "mumbai, maharashatra",
-            district: "mumbai",
-            docType: "patient",
-            email: "rohit@gmail.com",
-            name: "Rohit",
-            password:
-              "$2b$10$3Ex6Yn/jtxHprQSRhpXZWecf/buZNEp/zM7cRUdgvdE93mXv4gw82",
-            phone: 1234567890,
-            pid: "PYm3D-Q4kf",
-            state: "maharashatra",
-          },
-          record: [
-            {
-              createTime: "12/01/2021",
-              desc: "nk",
-              diagonis: {
-                blocks: [
-                  {
-                    data: {},
-                    depth: 0,
-                    entityRanges: [],
-                    inlineStyleRanges: [],
-                    key: "8lq8s",
-                    text: "hv",
-                    type: "unstyled",
-                  },
-                ],
-                entityMap: {},
-              },
-              diagonisReport: [
-                "bafybeia765lw3sjmrgdwlvcplwo2gcsvg7x7ouwm6zveh2mn2237hgeahi",
-              ],
-              did: "DRmO3zk1Lv",
-              docType: "record",
-              drugsName: null,
-              drugsReport: [],
-              name: "jhj",
-              pid: "PYm3D-Q4kf",
-              rid: "R4eW0_xmMi",
-              treatMent: null,
-              treatmentReport: [],
-            },
-            {
-              createTime: "12/01/2021",
-              desc: "uiguiy",
-              diagonis: {
-                blocks: [
-                  {
-                    data: {},
-                    depth: 0,
-                    entityRanges: [],
-                    inlineStyleRanges: [],
-                    key: "aohu8",
-                    text: "kljh",
-                    type: "unstyled",
-                  },
-                ],
-                entityMap: {},
-              },
-              diagonisReport: [
-                "bafybeia765lw3sjmrgdwlvcplwo2gcsvg7x7ouwm6zveh2mn2237hgeahi",
-              ],
-              did: "DRmO3zk1Lv",
-              docType: "record",
-              drugsName: null,
-              drugsReport: [],
-              name: "mal",
-              pid: "PYm3D-Q4kf",
-              rid: "RWUQEZkXCD",
-              treatMent: null,
-              treatmentReport: [],
-            },
-          ],
+      let response = await health.get(`/doctor/patient/${pid}`, {
+        headers: {
+          Authorization: "Bearer " + AuthState.state.accessToken,
+          did: AuthState.state.id,
         },
-      };
+      });
+
+      response = await response.data;
+
+      console.log(response);
+      // let response = {
+      //   status: "success",
+      //   patientData: {
+      //     status: "success",
+      //     patient: {
+      //       address: "mumbai, maharashatra",
+      //       district: "mumbai",
+      //       docType: "patient",
+      //       email: "rohit@gmail.com",
+      //       name: "Rohit",
+      //       password:
+      //         "$2b$10$3Ex6Yn/jtxHprQSRhpXZWecf/buZNEp/zM7cRUdgvdE93mXv4gw82",
+      //       phone: 1234567890,
+      //       pid: "PYm3D-Q4kf",
+      //       state: "maharashatra",
+      //     },
+      //     record: [
+      //       {
+      //         createTime: "12/01/2021",
+      //         desc: "nk",
+      //         diagonis: {
+      //           blocks: [
+      //             {
+      //               data: {},
+      //               depth: 0,
+      //               entityRanges: [],
+      //               inlineStyleRanges: [],
+      //               key: "8lq8s",
+      //               text: "hv",
+      //               type: "unstyled",
+      //             },
+      //           ],
+      //           entityMap: {},
+      //         },
+      //         diagonisReport: [
+      //           "bafybeia765lw3sjmrgdwlvcplwo2gcsvg7x7ouwm6zveh2mn2237hgeahi",
+      //         ],
+      //         did: "DRmO3zk1Lv",
+      //         docType: "record",
+      //         drugsName: null,
+      //         drugsReport: [],
+      //         name: "jhj",
+      //         pid: "PYm3D-Q4kf",
+      //         rid: "R4eW0_xmMi",
+      //         treatMent: null,
+      //         treatmentReport: [],
+      //       },
+      //       {
+      //         createTime: "12/01/2021",
+      //         desc: "uiguiy",
+      //         diagonis: {
+      //           blocks: [
+      //             {
+      //               data: {},
+      //               depth: 0,
+      //               entityRanges: [],
+      //               inlineStyleRanges: [],
+      //               key: "aohu8",
+      //               text: "kljh",
+      //               type: "unstyled",
+      //             },
+      //           ],
+      //           entityMap: {},
+      //         },
+      //         diagonisReport: [
+      //           "bafybeia765lw3sjmrgdwlvcplwo2gcsvg7x7ouwm6zveh2mn2237hgeahi",
+      //         ],
+      //         did: "DRmO3zk1Lv",
+      //         docType: "record",
+      //         drugsName: null,
+      //         drugsReport: [],
+      //         name: "mal",
+      //         pid: "PYm3D-Q4kf",
+      //         rid: "RWUQEZkXCD",
+      //         treatMent: null,
+      //         treatmentReport: [],
+      //       },
+      //     ],
+      //   },
+      // };
       //response = await response
       console.log("set patient dat");
       if (response.status == "success") {
