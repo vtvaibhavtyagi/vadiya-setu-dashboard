@@ -33,7 +33,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import health from "api/health";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
-import AddDisease from "./PatientRecord.js/AddDisease";
+import AddDisease from "./PatientRecord/AddDisease";
 
 // ===============================|| COLOR BOX ||=============================== //
 

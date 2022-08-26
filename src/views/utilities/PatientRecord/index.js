@@ -160,7 +160,7 @@ const UIColor = () => {
               {item.name}
             </Typography>
             <Typography variant="h3" component="div">
-              Desc
+              Description
             </Typography>
             <Typography
               variant="body1"
